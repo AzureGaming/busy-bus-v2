@@ -56,11 +56,11 @@ public abstract class BusEvent : MonoBehaviour {
     }
 
     void Pass() {
-        gradeEvent.GradeDrive(timeElapsed, timeToWait);
+        EventRating.OnRateEvent?.Invoke(type, timeElapsed, timeToWait);
     }
 
     void Fail() {
-        gradeEvent.Fail();
+        EventRating.OnFailEvent?.Invoke();
     }
 
     protected virtual bool IsResponseCorrect() {
