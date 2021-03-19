@@ -26,7 +26,7 @@ public abstract class BusEvent : MonoBehaviour {
         OnComplete += RatePerformance;
     }
 
-    void StartEvent() {
+    protected void SetupEvent() {
         timeElapsed = 0f;
         eventRoutine = StartCoroutine(EventRoutine());
         timeoutRoutine = StartCoroutine(Timeout());
@@ -35,6 +35,7 @@ public abstract class BusEvent : MonoBehaviour {
     IEnumerator EventRoutine() {
         yield return new WaitUntil(() => hasResponded);
         StopCoroutine(timeoutRoutine);
+        OnEvaluate();
         Evaluate();
     }
 
@@ -44,6 +45,7 @@ public abstract class BusEvent : MonoBehaviour {
             yield return null;
         }
         StopCoroutine(eventRoutine);
+        OnTimeout();
         Fail();
     }
 
@@ -66,6 +68,12 @@ public abstract class BusEvent : MonoBehaviour {
     protected virtual bool IsResponseCorrect() {
         Debug.LogWarning("Not implemented");
         return true;
+    }
+
+    protected virtual void OnEvaluate() {
+    }
+
+    protected virtual void OnTimeout() {
     }
 
     void RatePerformance(EventType eventType, float timeElapsed, float totalTime) {
