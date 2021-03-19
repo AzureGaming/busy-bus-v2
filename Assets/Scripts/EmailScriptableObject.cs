@@ -10,5 +10,6 @@ public class EmailScriptableObject : ScriptableObject {
     public string dateSent; // number?
     public bool read; // is this appropriate?
     public int id; // correlate an email to an event
-    public bool sentToPlayer; // is this appropriate?
+    //public bool sentToPlayer; // is this appropriate?
+    public int dayToReceive = 1; // hardcode the day the email wil be sent
 }
