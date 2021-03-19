@@ -32,6 +32,17 @@ public abstract class BusEvent : MonoBehaviour {
         timeoutRoutine = StartCoroutine(Timeout());
     }
 
+    protected virtual bool IsResponseCorrect() {
+        Debug.LogWarning("Not implemented");
+        return true;
+    }
+
+    protected virtual void OnEvaluate() {
+    }
+
+    protected virtual void OnTimeout() {
+    }
+
     IEnumerator EventRoutine() {
         yield return new WaitUntil(() => hasResponded);
         StopCoroutine(timeoutRoutine);
@@ -50,6 +61,10 @@ public abstract class BusEvent : MonoBehaviour {
     }
 
     void Evaluate() {
+        // TODO: handle valid payment accept
+        // TODO: handle valid payment reject
+        // TODO: handle invalid payment accept
+        // TODO: handle invalid payment reject
         if (IsResponseCorrect()) {
             Pass();
         } else {
@@ -63,17 +78,6 @@ public abstract class BusEvent : MonoBehaviour {
 
     void Fail() {
         EventRating.OnFailEvent?.Invoke();
-    }
-
-    protected virtual bool IsResponseCorrect() {
-        Debug.LogWarning("Not implemented");
-        return true;
-    }
-
-    protected virtual void OnEvaluate() {
-    }
-
-    protected virtual void OnTimeout() {
     }
 
     void RatePerformance(EventType eventType, float timeElapsed, float totalTime) {
