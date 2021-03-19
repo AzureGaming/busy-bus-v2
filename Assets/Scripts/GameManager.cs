@@ -31,5 +31,4 @@ public class GameManager : MonoBehaviour {
         // End the day early, cleanup
         timeOfDay.Kill();
     }
-
 }

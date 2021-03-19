@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff464b1e5b5009b41a0e66ad8d164a0b, type: 3}
   m_Name: Email
   m_EditorClassIdentifier: 
-  header: Header
-  body: Body
+  header: Thisis iportant email
+  body: asfsdfdsafdsafa
   sender: Sender
   dateSent: Date Sent
   read: 0
   id: 0
-  sentToPlayer: 0
+  dayToReceive: 1
