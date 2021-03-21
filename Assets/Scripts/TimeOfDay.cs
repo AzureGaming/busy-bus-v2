@@ -44,6 +44,7 @@ public class TimeOfDay : MonoBehaviour {
             timeElapsed += Time.deltaTime;
             yield return null;
         }
+        Kill();
     }
 
     IEnumerator IncrementHour() {

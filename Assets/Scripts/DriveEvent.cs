@@ -14,6 +14,7 @@ public class DriveEvent : BusEvent {
     }
 
     public void Begin() {
+        Debug.Log("Begin");
         SetupEvent();
         SelectLane();
         DisplayPrompt();
