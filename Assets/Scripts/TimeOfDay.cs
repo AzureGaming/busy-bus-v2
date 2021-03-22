@@ -10,12 +10,16 @@ public class TimeOfDay : MonoBehaviour {
     /// </summary>
     public static ScheduleAction OnScheduleAction;
 
+    public float timeElapsed {
+        get; private set;
+    }
+    public int hour {
+        get; private set;
+    }
     const float REAL_MINUTES = 7f;
     const float TOTAL_GAME_HOURS = 12; // 06:00 - 18:00
-    float timeElapsed;
     float targetTime;
     float gameHoursPerSecond;
-    int hour;
 
     private void OnEnable() {
         OnScheduleAction += Schedule;
@@ -49,6 +53,7 @@ public class TimeOfDay : MonoBehaviour {
 
     IEnumerator IncrementHour() {
         yield return new WaitForSeconds(gameHoursPerSecond);
+        hour++;
     }
 
     void Schedule(int hour, Action action) {
