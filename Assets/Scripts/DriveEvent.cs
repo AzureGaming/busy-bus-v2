@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class DriveEvent : BusEvent {
     // TODO: variable to track the lane we're currently in
+    public string playerResponse {
+        get;
+        private set;
+    }
     string expectedKey;
-    string playerResponse;
     Coroutine getPlayerResponse;
 
     private void Awake() {
@@ -14,7 +17,6 @@ public class DriveEvent : BusEvent {
     }
 
     public void Begin() {
-        Debug.Log("Begin");
         SetupEvent();
         SelectLane();
         DisplayPrompt();
@@ -57,7 +59,7 @@ public class DriveEvent : BusEvent {
         playerResponse = null;
         yield return new WaitUntil(() => {
             playerResponse = Input.inputString;
-            return playerResponse == null ? false : true;
+            return ( playerResponse == null || playerResponse == "" ) ? false : true;
         });
     }
 }

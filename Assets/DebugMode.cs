@@ -10,6 +10,7 @@ public class DebugMode : MonoBehaviour {
     public GameObject debugWindow;
     public TMP_Text hour;
     public TMP_Text timeElapsed;
+    public TMP_Text drivingResponse;
 
 
     private void Start() {
@@ -21,11 +22,29 @@ public class DebugMode : MonoBehaviour {
             isEnabled = !isEnabled;
             SetVisibility();
         }
-        hour.text = "<color=\"green\">hour: " + FindObjectOfType<TimeOfDay>().hour + "</color>";
-        timeElapsed.text = "<color=\"green\">time elapsed: " + FindObjectOfType<TimeOfDay>().timeElapsed + "</color>";
+        TrackHour();
+        TrackTimeElapsed();
+        TrackDrivingResponse();
     }
 
     void SetVisibility() {
         debugWindow.SetActive(isEnabled);
+    }
+
+    void TrackHour() {
+        hour.text = "<color=\"green\">hour: " + FindObjectOfType<TimeOfDay>().hour + "</color>";
+    }
+
+    void TrackTimeElapsed() {
+        timeElapsed.text = "<color=\"green\">time elapsed: " + FindObjectOfType<TimeOfDay>().timeElapsed + "</color>";
+
+    }
+
+    void TrackDrivingResponse() {
+        if (FindObjectOfType<DriveEvent>().playerResponse == null || FindObjectOfType<DriveEvent>().playerResponse == "") {
+            drivingResponse.text = "<color=\"green\">drive response: waiting...</color>";
+        } else {
+            drivingResponse.text = "<color=\"green\">drive response: " + FindObjectOfType<DriveEvent>().playerResponse + "</color>";
+        }
     }
 }
