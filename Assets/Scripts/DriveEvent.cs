@@ -8,6 +8,10 @@ public class DriveEvent : BusEvent {
         get;
         private set;
     }
+    public bool isPrompted {
+        get;
+        private set;
+    }
     string expectedKey;
     Coroutine getPlayerResponse;
 
@@ -48,10 +52,12 @@ public class DriveEvent : BusEvent {
     }
 
     void DisplayPrompt() {
+        isPrompted = true;
         Debug.LogWarning("TODO: Implement");
     }
 
     void HidePrompt() {
+        isPrompted = false;
         Debug.LogWarning("TODO: Implement");
     }
 
