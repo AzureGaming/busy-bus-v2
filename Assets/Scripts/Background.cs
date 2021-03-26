@@ -8,11 +8,11 @@ public class Background : MonoBehaviour {
     public GameObject image;
 
     private void Update() {
-        //if (Input.GetKeyDown(KeyCode.A)) {
-        //    GoToLeftLane();
-        //} else if (Input.GetKeyDown(KeyCode.D)) {
-        //    GoToRightLane();
-        //}
+        if (Input.GetKeyDown(KeyCode.A)) {
+            GoToLeftLane();
+        } else if (Input.GetKeyDown(KeyCode.D)) {
+            GoToRightLane();
+        }
     }
 
     public void GoToLeftLane() {
