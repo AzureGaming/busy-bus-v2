@@ -11,7 +11,7 @@ public class DebugMode : MonoBehaviour {
     public TMP_Text hour;
     public TMP_Text timeElapsed;
     public TMP_Text drivingResponse;
-
+    public TMP_Text gameHoursPerSecond;
 
     private void Start() {
         SetVisibility();
@@ -25,6 +25,7 @@ public class DebugMode : MonoBehaviour {
         TrackHour();
         TrackTimeElapsed();
         TrackDrivingResponse();
+        TrackGameHoursPerSecond();
     }
 
     void SetVisibility() {
@@ -37,7 +38,6 @@ public class DebugMode : MonoBehaviour {
 
     void TrackTimeElapsed() {
         timeElapsed.text = "<color=\"green\">time elapsed: " + FindObjectOfType<TimeOfDay>().timeElapsed + "</color>";
-
     }
 
     void TrackDrivingResponse() {
@@ -46,5 +46,9 @@ public class DebugMode : MonoBehaviour {
         } else {
             drivingResponse.text = "<color=\"green\">drive response: " + FindObjectOfType<DriveEvent>().playerResponse + "</color>";
         }
+    }
+
+    void TrackGameHoursPerSecond() {
+        gameHoursPerSecond.text = "<color=\"green\">game hours per second: " + FindObjectOfType<TimeOfDay>().gameHoursPerSecond + "</color>";
     }
 }

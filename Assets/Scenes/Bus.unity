@@ -768,7 +768,7 @@ Transform:
   m_Children:
   - {fileID: 343206254}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1049521135
 MonoBehaviour:
@@ -787,6 +787,7 @@ MonoBehaviour:
   hour: {fileID: 702972416}
   timeElapsed: {fileID: 1106822579}
   drivingResponse: {fileID: 1369144729}
+  gameHoursPerSecond: {fileID: 463180515}
 --- !u!1 &1106822577
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,6 +1319,7 @@ RectTransform:
   m_Children:
   - {fileID: 666179118}
   - {fileID: 1590094168}
+  - {fileID: 1878208788}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1422,17 +1424,17 @@ RectTransform:
   m_GameObject: {fileID: 1878208787}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2025, y: 1.2025, z: 1.2025}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 702972415}
   - {fileID: 1106822578}
   - {fileID: 1369144728}
   - {fileID: 463180514}
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 1510149504}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 22.705305, y: 22.705305}
-  m_SizeDelta: {x: 167.1116, y: 95.2063}
+  m_AnchoredPosition: {x: 18.88175, y: 18.88175}
+  m_SizeDelta: {x: 232.9529, y: 95.2063}
   m_Pivot: {x: 0, y: 0}
