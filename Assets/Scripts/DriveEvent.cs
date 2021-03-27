@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DriveEvent : BusEvent {
-    // TODO: variable to track the lane we're currently in
     public string playerResponse {
         get;
         private set;
@@ -14,10 +13,21 @@ public class DriveEvent : BusEvent {
     }
     string expectedKey;
     Coroutine getPlayerResponse;
+    enum Lane {
+        Left,
+        Right
+    }
+    Lane currentLane;
+    Lane expectedLane;
 
     private void Awake() {
         type = EventType.Drive;
+        currentLane = Lane.Left;
         timeToWait = 3f;
+    }
+
+    private void Start() {
+        ChangeLane(true);
     }
 
     public void Begin() {
@@ -46,19 +56,28 @@ public class DriveEvent : BusEvent {
     }
 
     void SelectLane() {
-        // select the unoccupied lane
-        // set the expected key accordingly
-        Debug.LogWarning("TODO: Implement");
+        if (currentLane == Lane.Left) {
+            expectedLane = Lane.Right;
+        } else {
+            expectedLane = Lane.Left;
+        }
+    }
+
+    void ChangeLane(bool skipAnimation) {
+        if (expectedLane == Lane.Left) {
+            Background.OnLeftLaneChange?.Invoke(skipAnimation);
+        } else {
+            Background.OnRightLaneChange?.Invoke(skipAnimation);
+        }
     }
 
     void DisplayPrompt() {
         isPrompted = true;
-        Debug.LogWarning("TODO: Implement");
-    }
-
-    void HidePrompt() {
-        isPrompted = false;
-        Debug.LogWarning("TODO: Implement");
+        if (expectedLane == Lane.Left) {
+            DrivePrompt.OnLeftLaneChange?.Invoke();
+        } else {
+            DrivePrompt.OnRightLaneChange?.Invoke();
+        }
     }
 
     IEnumerator GetPlayerResponse() {
@@ -67,5 +86,12 @@ public class DriveEvent : BusEvent {
             playerResponse = Input.inputString;
             return ( playerResponse == null || playerResponse == "" ) ? false : true;
         });
+        HidePrompt();
+        ChangeLane(false);
+    }
+
+    void HidePrompt() {
+        isPrompted = false;
+        DrivePrompt.OnCompleteLaneChange?.Invoke();
     }
 }
