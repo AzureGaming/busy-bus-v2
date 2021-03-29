@@ -19,7 +19,9 @@ public class TimeOfDay : MonoBehaviour {
     const float REAL_MINUTES = 7f;
     const float TOTAL_GAME_HOURS = 12; // 06:00 - 18:00
     float targetTime;
-    float gameHoursPerSecond;
+    public float gameHoursPerSecond {
+        get; private set;
+    }
 
     private void OnEnable() {
         OnScheduleAction += Schedule;

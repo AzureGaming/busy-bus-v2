@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class DebugMode : MonoBehaviour {
     [SerializeField]
-    bool isEnabled = false;
+    bool isEnabled;
 
     public GameObject debugWindow;
     public TMP_Text hour;
     public TMP_Text timeElapsed;
     public TMP_Text drivingResponse;
-
+    public TMP_Text drivingPrompted;
+    public TMP_Text gameHoursPerSecond;
 
     private void Start() {
         SetVisibility();
@@ -25,6 +26,8 @@ public class DebugMode : MonoBehaviour {
         TrackHour();
         TrackTimeElapsed();
         TrackDrivingResponse();
+        TrackGameHoursPerSecond();
+        TrackDrivingPrompted();
     }
 
     void SetVisibility() {
@@ -37,14 +40,17 @@ public class DebugMode : MonoBehaviour {
 
     void TrackTimeElapsed() {
         timeElapsed.text = "<color=\"green\">time elapsed: " + FindObjectOfType<TimeOfDay>().timeElapsed + "</color>";
-
     }
 
     void TrackDrivingResponse() {
-        if (FindObjectOfType<DriveEvent>().playerResponse == null || FindObjectOfType<DriveEvent>().playerResponse == "") {
-            drivingResponse.text = "<color=\"green\">drive response: waiting...</color>";
-        } else {
-            drivingResponse.text = "<color=\"green\">drive response: " + FindObjectOfType<DriveEvent>().playerResponse + "</color>";
-        }
+        drivingResponse.text = "<color=\"green\">drive response: " + FindObjectOfType<DriveEvent>().playerResponse + "</color>";
+    }
+
+    void TrackGameHoursPerSecond() {
+        gameHoursPerSecond.text = "<color=\"green\">game hours per second: " + FindObjectOfType<TimeOfDay>().gameHoursPerSecond + "</color>";
+    }
+
+    void TrackDrivingPrompted() {
+        drivingPrompted.text = "<color=\"green\">drive prompted: " + FindObjectOfType<DriveEvent>().isPrompted.ToString();
     }
 }
