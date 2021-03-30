@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BusEvent : MonoBehaviour {
-    public delegate void Complete(EventType eventType, float timeElapsed, float totalTime);
-    public static Complete OnComplete;
     public enum EventType {
         Drive,
         Fare,
@@ -21,10 +19,6 @@ public abstract class BusEvent : MonoBehaviour {
         get; set;
     }
     float timeElapsed;
-
-    private void OnEnable() {
-        OnComplete += RatePerformance;
-    }
 
     protected void SetupEvent() {
         timeElapsed = 0f;
@@ -78,8 +72,5 @@ public abstract class BusEvent : MonoBehaviour {
 
     void Fail() {
         EventRating.OnFailEvent?.Invoke();
-    }
-
-    void RatePerformance(EventType eventType, float timeElapsed, float totalTime) {
     }
 }
