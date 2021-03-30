@@ -27,10 +27,10 @@ public class DriveEvent : BusEvent {
     }
 
     private void Start() {
-        ChangeLane(true);
+        ChangeLane(true); // Set the bus to the correct lane
     }
 
-    public void Begin() {
+    public void BeginEvent() {
         SetupEvent();
         SelectLane();
         DisplayPrompt();
@@ -38,10 +38,7 @@ public class DriveEvent : BusEvent {
     }
 
     protected override bool IsResponseCorrect() {
-        if (expectedKey == playerResponse) {
-            return true;
-        }
-        return false;
+        return expectedKey == playerResponse;
     }
 
     protected override void OnEvaluate() {
@@ -67,8 +64,10 @@ public class DriveEvent : BusEvent {
     void ChangeLane(bool skipAnimation) {
         if (expectedLane == Lane.Left) {
             Background.OnLeftLaneChange?.Invoke(skipAnimation);
+            currentLane = Lane.Left;
         } else {
             Background.OnRightLaneChange?.Invoke(skipAnimation);
+            currentLane = Lane.Right;
         }
     }
 
