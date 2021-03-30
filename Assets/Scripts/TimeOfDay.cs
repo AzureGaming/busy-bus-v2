@@ -16,7 +16,7 @@ public class TimeOfDay : MonoBehaviour {
     public int hour {
         get; private set;
     }
-    const float REAL_MINUTES = 7f;
+    const float REAL_MINUTES = 2f;
     const float TOTAL_GAME_HOURS = 12; // 06:00 - 18:00
     float targetTime;
     public float gameHoursPerSecond {
@@ -54,8 +54,10 @@ public class TimeOfDay : MonoBehaviour {
     }
 
     IEnumerator IncrementHour() {
-        yield return new WaitForSeconds(gameHoursPerSecond);
-        hour++;
+        while (timeElapsed <= targetTime) {
+            hour++;
+            yield return new WaitForSeconds(gameHoursPerSecond);
+        }
     }
 
     void Schedule(int hour, Action action) {
