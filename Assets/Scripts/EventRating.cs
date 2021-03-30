@@ -62,5 +62,6 @@ public class EventRating : MonoBehaviour {
 
     public void Fail() {
         fails++;
+        GameManager.OnFailDay?.Invoke(fails);
     }
 }

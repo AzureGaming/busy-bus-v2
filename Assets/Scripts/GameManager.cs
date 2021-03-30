@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     // TODO: should be singleton
-    public delegate void FailDay();
+    public delegate void FailDay(int fails);
     public static FailDay OnFailDay;
     public delegate void CompleteDay();
     public static CompleteDay OnCompleteDay;
@@ -39,13 +39,15 @@ public class GameManager : MonoBehaviour {
         eventQueue.QueueForDay();
     }
 
-    void GameOver() {
+    void GameOver(int fails) {
         // End the day early, cleanup
-        timeOfDay.Kill();
+        if (fails >= 2) {
+            timeOfDay.Kill();
+            Debug.Log("TODO: Implement Game Over");
+        }
     }
 
     void CompleteTheDay() {
         dayOver = true;
     }
-
 }

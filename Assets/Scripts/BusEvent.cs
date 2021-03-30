@@ -72,11 +72,11 @@ public abstract class BusEvent : MonoBehaviour {
         }
     }
 
-    protected void Pass() {
+    void Pass() {
         EventRating.OnRateEvent?.Invoke(type, timeElapsed, timeToWait);
     }
 
-    protected void Fail() {
+    void Fail() {
         EventRating.OnFailEvent?.Invoke();
     }
 

@@ -50,7 +50,6 @@ public class DriveEvent : BusEvent {
             StopCoroutine(getPlayerResponse);
         }
         HidePrompt();
-        Fail();
     }
 
     void SelectLane() {
@@ -84,11 +83,10 @@ public class DriveEvent : BusEvent {
         playerResponse = null;
         yield return new WaitUntil(() => {
             playerResponse = Input.inputString;
-            return ( playerResponse == null || playerResponse == "" ) ? false : true;
+            return playerResponse != null && playerResponse != "";
         });
         HidePrompt();
         ChangeLane(false);
-        Pass();
     }
 
     void HidePrompt() {
