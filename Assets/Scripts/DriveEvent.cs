@@ -53,6 +53,7 @@ public class DriveEvent : BusEvent {
             StopCoroutine(getPlayerResponse);
         }
         HidePrompt();
+        Fail();
     }
 
     void SelectLane() {
@@ -88,6 +89,7 @@ public class DriveEvent : BusEvent {
         });
         HidePrompt();
         ChangeLane(false);
+        Pass();
     }
 
     void HidePrompt() {
