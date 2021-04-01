@@ -27,7 +27,11 @@ public class DriveEvent : BusEvent {
     }
 
     private void Start() {
-        ChangeLane(true); // Set the bus to the correct lane
+        if (currentLane == Lane.Left) {
+            Background.OnInitLeftLane?.Invoke();
+        } else {
+            Background.OnInitRightLane?.Invoke();
+        }
     }
 
     public void BeginEvent() {
@@ -50,6 +54,8 @@ public class DriveEvent : BusEvent {
             StopCoroutine(getPlayerResponse);
         }
         HidePrompt();
+
+        ChangeLane(false, true);
     }
 
     void SelectLane() {
@@ -60,12 +66,12 @@ public class DriveEvent : BusEvent {
         }
     }
 
-    void ChangeLane(bool skipAnimation) {
+    void ChangeLane(bool skipAnimation = false, bool isRushed = false) {
         if (expectedLane == Lane.Left) {
-            Background.OnLeftLaneChange?.Invoke(skipAnimation);
+            Background.OnLeftLaneChange?.Invoke(skipAnimation, isRushed);
             currentLane = Lane.Left;
         } else {
-            Background.OnRightLaneChange?.Invoke(skipAnimation);
+            Background.OnRightLaneChange?.Invoke(skipAnimation, isRushed);
             currentLane = Lane.Right;
         }
     }
@@ -86,7 +92,7 @@ public class DriveEvent : BusEvent {
             return playerResponse != null && playerResponse != "";
         });
         HidePrompt();
-        ChangeLane(false);
+        ChangeLane();
     }
 
     void HidePrompt() {
