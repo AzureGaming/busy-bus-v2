@@ -64,7 +64,7 @@ public class Background : MonoBehaviour {
         if (!skipAnimation) {
             while (timeElapsed <= totalTime) {
                 Vector3 nextPos = image.transform.position;
-                float nextPosX = Mathf.Lerp(pos.x, rightLanePosition.transform.position.x, ( timeElapsed / totalTime ));
+                float nextPosX = Mathf.Lerp(pos.x, newPos.x, ( timeElapsed / totalTime ));
                 nextPos.x = nextPosX;
                 image.transform.position = nextPos;
                 timeElapsed += Time.deltaTime;

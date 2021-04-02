@@ -22,6 +22,7 @@ public abstract class BusEvent : MonoBehaviour {
 
     protected void SetupEvent() {
         timeElapsed = 0f;
+        hasResponded = false;
         eventRoutine = StartCoroutine(EventRoutine());
         timeoutRoutine = StartCoroutine(Timeout());
     }

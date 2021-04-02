@@ -11,7 +11,7 @@ public class DriveEvent : BusEvent {
         get;
         private set;
     }
-    string expectedKey;
+    KeyCode expectedKey;
     Coroutine getPlayerResponse;
     enum Lane {
         Left,
@@ -42,7 +42,7 @@ public class DriveEvent : BusEvent {
     }
 
     protected override bool IsResponseCorrect() {
-        return expectedKey == playerResponse;
+        return expectedKey.ToString().ToLower() == playerResponse;
     }
 
     protected override void OnEvaluate() {
@@ -54,15 +54,16 @@ public class DriveEvent : BusEvent {
             StopCoroutine(getPlayerResponse);
         }
         HidePrompt();
-
         ChangeLane(false, true);
     }
 
     void SelectLane() {
         if (currentLane == Lane.Left) {
             expectedLane = Lane.Right;
+            expectedKey = KeyCode.D;
         } else {
             expectedLane = Lane.Left;
+            expectedKey = KeyCode.A;
         }
     }
 
@@ -91,6 +92,7 @@ public class DriveEvent : BusEvent {
             playerResponse = Input.inputString;
             return playerResponse != null && playerResponse != "";
         });
+        hasResponded = true;
         HidePrompt();
         ChangeLane();
     }
