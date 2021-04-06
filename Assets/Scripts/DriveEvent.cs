@@ -23,7 +23,7 @@ public class DriveEvent : BusEvent {
     private void Awake() {
         type = EventType.Drive;
         currentLane = Lane.Left;
-        timeToWait = 2f;
+        timeToWait = 5f;
     }
 
     private void Start() {
