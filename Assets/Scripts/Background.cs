@@ -16,6 +16,12 @@ public class Background : MonoBehaviour {
     public GameObject rightLanePosition;
     public GameObject image;
 
+    Animator animator;
+
+    private void Awake() {
+        animator = GetComponent<Animator>();
+    }
+
     private void OnEnable() {
         OnLeftLaneChange += GoToLeftLane;
         OnRightLaneChange += GoToRightLane;
@@ -38,6 +44,10 @@ public class Background : MonoBehaviour {
         image.transform.position = rightLanePosition.transform.position;
     }
 
+    public void ReduceAnimationSpeed() {
+ 
+    }
+
     public void GoToLeftLane(bool skipAnimation, bool isRushed) {
         StopAllCoroutines();
         if (isRushed) {
@@ -55,6 +65,15 @@ public class Background : MonoBehaviour {
             StartCoroutine(GoToPositionSmooth(rightLanePosition.transform.position, skipAnimation));
         }
     }
+
+    //IEnumerator ChangeAnimationSpeed(int target) {
+    //    float timeElapsed = 0f;
+    //    float totalTime = 1f;
+    //    while (timeElapsed <= totalTime) {
+    //        //animator.sp
+    //        //yield return null;
+    //    }
+    //}
 
     IEnumerator GoToPositionSmooth(Vector3 newPos, bool skipAnimation) {
         float timeElapsed = 0f;
