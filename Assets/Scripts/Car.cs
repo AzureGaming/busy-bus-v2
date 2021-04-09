@@ -9,30 +9,52 @@ public class Car : MonoBehaviour {
     public Sprite medium;
     public Sprite large;
 
+    public Transform endPos;
+
     Image image;
 
     private void Awake() {
         image = GetComponent<Image>();
     }
 
-    private void Update() {
-        if (transform.localPosition.y <= 0 && transform.localPosition.y >= -10) {
-            image.sprite = tiny;
-        }
+    private void Start() {
+        image.sprite = tiny;
+        StartCoroutine(Move());
+    }
 
-        if (transform.localPosition.y < -10 && transform.localPosition.y >= -20) {
-            image.sprite = small;
-        }
 
-        if (transform.localPosition.y < -20 && transform.localPosition.y >= -30) {
-            image.sprite = medium;
-        }
+    IEnumerator Move() {
+        float totalTime = 10f;
+        float timeElapsed = 0f;
+        Vector2 startPos = transform.position;
 
-        if (transform.localPosition.y < -30) {
-            image.sprite = large;
+        image.sprite = tiny;
+        yield return new WaitForSeconds(2f);
+        image.sprite = small;
+        yield return new WaitForSeconds(1.5f);
+
+        while (timeElapsed < totalTime) {
+            if (transform.localPosition.x <= -17) {
+                image.sprite = medium;
+            }
+
+            if (transform.localPosition.x <= -80) {
+                image.transform.localScale = new Vector2(0.8f, 0.8f);
+                image.sprite = large;
+            }
+            timeElapsed += Time.deltaTime;
+
+
+            transform.position = Hermite(startPos, endPos.position, timeElapsed / totalTime);
+            yield return null;
         }
-        Vector3 newPos = transform.position;
-        newPos.y -= 0.01f;
-        transform.position = newPos;
+    }
+
+    float Hermite(float start, float end, float value) {
+        return Mathf.Lerp(start, end, value * value * ( 3.0f - 2.0f * value ));
+    }
+
+    Vector2 Hermite(Vector2 start, Vector2 end, float value) {
+        return new Vector2(Hermite(start.x, end.x, value), Hermite(start.y, end.y, value));
     }
 }
