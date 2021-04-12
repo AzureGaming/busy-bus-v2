@@ -4,26 +4,45 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Car : MonoBehaviour {
+    public delegate void BusLaneChange();
+    public static BusLaneChange OnBusLaneChange;
     public Sprite tiny;
     public Sprite small;
     public Sprite medium;
     public Sprite large;
 
-    public Transform endPos;
+    public Transform blockBus;
+    public Transform pastBus;
 
     Image image;
+    bool startedEvent = false;
+    bool isBusBlocking;
+    Vector2 startBlockBusPos;
+    Vector2 startPastBusPos;
 
     private void Awake() {
         image = GetComponent<Image>();
+
+        startBlockBusPos = blockBus.position;
+        startPastBusPos = pastBus.position;
     }
 
     private void Start() {
+        Flip();
         image.sprite = tiny;
-        StartCoroutine(Move());
+        isBusBlocking = true;
+        StartCoroutine(MoveInFrontOfBus());
     }
 
+    void OnEnable() {
+        OnBusLaneChange += MovePastBus;
+    }
 
-    IEnumerator Move() {
+    private void OnDisable() {
+        OnBusLaneChange -= MovePastBus;
+    }
+
+    IEnumerator MoveInFrontOfBus() {
         float totalTime = 10f;
         float timeElapsed = 0f;
         Vector2 startPos = transform.position;
@@ -34,6 +53,12 @@ public class Car : MonoBehaviour {
         yield return new WaitForSeconds(1.5f);
 
         while (timeElapsed < totalTime) {
+            // Prompt the driving event to player
+            if (timeElapsed / totalTime >= 0.8f && !startedEvent) {
+                startedEvent = true;
+                DriveEvent.OnInitEvent?.Invoke();
+            }
+
             if (transform.localPosition.x <= -17) {
                 image.sprite = medium;
             }
@@ -42,10 +67,48 @@ public class Car : MonoBehaviour {
                 image.transform.localScale = new Vector2(0.8f, 0.8f);
                 image.sprite = large;
             }
+
             timeElapsed += Time.deltaTime;
 
+            // move toward bus
+            transform.position = Hermite(startPos, blockBus.position, timeElapsed / totalTime);
+            yield return null;
+        }
 
-            transform.position = Hermite(startPos, endPos.position, timeElapsed / totalTime);
+        // move past bus
+        yield return new WaitUntil(() => !isBusBlocking);
+        yield return StartCoroutine(MovePastBusRoutine());
+
+        Destroy(gameObject);
+    }
+
+    void MovePastBus() {
+        isBusBlocking = false;
+    }
+
+    void Flip() {
+        if (StateManager.currentLane == StateManager.Lane.Left) {
+            blockBus.position = startBlockBusPos;
+            pastBus.position = startPastBusPos;
+        } else {
+            Vector2 newBlockBusPos = startBlockBusPos;
+            Vector2 newPastBusPos = startPastBusPos;
+
+            newBlockBusPos.x *= -1;
+            newPastBusPos.x *= -1;
+            blockBus.position = newBlockBusPos;
+            pastBus.position = newPastBusPos;
+        }
+    }
+
+    IEnumerator MovePastBusRoutine() {
+        float totalTime = 5f;
+        float timeElapsed = 0f;
+        Vector2 pos = transform.position;
+
+        while (timeElapsed < totalTime) {
+            timeElapsed += Time.deltaTime;
+            transform.position = Vector2.Lerp(pos, pastBus.position, timeElapsed / totalTime);
             yield return null;
         }
     }

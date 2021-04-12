@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DriveEvent : BusEvent {
+    public delegate void InitEvent();
+    public static InitEvent OnInitEvent;
+
     public string playerResponse {
         get;
         private set;
@@ -11,23 +14,27 @@ public class DriveEvent : BusEvent {
         get;
         private set;
     }
+
     KeyCode expectedKey;
     Coroutine getPlayerResponse;
-    enum Lane {
-        Left,
-        Right
+    StateManager.Lane expectedLane;
+
+    private void OnEnable() {
+        OnInitEvent += BeginEvent;
     }
-    Lane currentLane;
-    Lane expectedLane;
+
+    private void OnDisable() {
+        OnInitEvent -= BeginEvent;
+    }
 
     private void Awake() {
         type = EventType.Drive;
-        currentLane = Lane.Left;
         timeToWait = 5f;
     }
 
     private void Start() {
-        if (currentLane == Lane.Left) {
+        // Move to somewhere else?
+        if (StateManager.currentLane == StateManager.Lane.Left) {
             Background.OnInitLeftLane?.Invoke();
         } else {
             Background.OnInitRightLane?.Invoke();
@@ -35,7 +42,7 @@ public class DriveEvent : BusEvent {
     }
 
     public void BeginEvent() {
-        SetupEvent();
+        SetupBaseEvent();
         SelectLane();
         DisplayPrompt();
         getPlayerResponse = StartCoroutine(GetPlayerResponse());
@@ -58,28 +65,29 @@ public class DriveEvent : BusEvent {
     }
 
     void SelectLane() {
-        if (currentLane == Lane.Left) {
-            expectedLane = Lane.Right;
+        if (StateManager.currentLane == StateManager.Lane.Left) {
+            expectedLane = StateManager.Lane.Right;
             expectedKey = KeyCode.D;
         } else {
-            expectedLane = Lane.Left;
+            expectedLane = StateManager.Lane.Left;
             expectedKey = KeyCode.A;
         }
     }
 
     void ChangeLane(bool skipAnimation = false, bool isRushed = false) {
-        if (expectedLane == Lane.Left) {
+        if (expectedLane == StateManager.Lane.Left) {
             Background.OnLeftLaneChange?.Invoke(skipAnimation, isRushed);
-            currentLane = Lane.Left;
+            StateManager.currentLane = StateManager.Lane.Left;
         } else {
             Background.OnRightLaneChange?.Invoke(skipAnimation, isRushed);
-            currentLane = Lane.Right;
+            StateManager.currentLane = StateManager.Lane.Right;
         }
+        Car.OnBusLaneChange?.Invoke();
     }
 
     void DisplayPrompt() {
         isPrompted = true;
-        if (expectedLane == Lane.Left) {
+        if (expectedLane == StateManager.Lane.Left) {
             DrivePrompt.OnLeftLaneChange?.Invoke();
         } else {
             DrivePrompt.OnRightLaneChange?.Invoke();

@@ -20,7 +20,7 @@ public abstract class BusEvent : MonoBehaviour {
     }
     float timeElapsed;
 
-    protected void SetupEvent() {
+    protected void SetupBaseEvent() {
         timeElapsed = 0f;
         hasResponded = false;
         eventRoutine = StartCoroutine(EventRoutine());
