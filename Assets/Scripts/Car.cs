@@ -13,6 +13,8 @@ public class Car : MonoBehaviour {
 
     public Transform blockBus;
     public Transform pastBus;
+    public Transform mediumPoint;
+    public Transform largePoint;
 
     Image image;
     bool startedEvent = false;
@@ -43,14 +45,14 @@ public class Car : MonoBehaviour {
     }
 
     IEnumerator MoveInFrontOfBus() {
-        float totalTime = 10f;
+        float totalTime = 15f;
         float timeElapsed = 0f;
         Vector2 startPos = transform.position;
 
         image.sprite = tiny;
         yield return new WaitForSeconds(2f);
         image.sprite = small;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2f);
 
         while (timeElapsed < totalTime) {
             // Prompt the driving event to player
@@ -59,13 +61,18 @@ public class Car : MonoBehaviour {
                 DriveEvent.OnInitEvent?.Invoke();
             }
 
-            if (transform.localPosition.x <= -17) {
-                image.sprite = medium;
-            }
+            //if (transform.localPosition.x <= -17) {
+            //    image.sprite = medium;
+            //}
 
-            if (transform.localPosition.x <= -80) {
-                image.transform.localScale = new Vector2(0.8f, 0.8f);
+            //if (transform.localPosition.x <= -80) {
+            //    image.transform.localScale = new Vector2(0.8f, 0.8f);
+            //    image.sprite = large;
+            //}
+            if (transform.position.y <= largePoint.position.y) {
                 image.sprite = large;
+            } else if (transform.position.y <= mediumPoint.position.y) {
+                image.sprite = medium;
             }
 
             timeElapsed += Time.deltaTime;
@@ -91,13 +98,17 @@ public class Car : MonoBehaviour {
             blockBus.position = startBlockBusPos;
             pastBus.position = startPastBusPos;
         } else {
-            Vector2 newBlockBusPos = startBlockBusPos;
-            Vector2 newPastBusPos = startPastBusPos;
+            Vector2 newBlockBusPos = blockBus.localPosition;
+            Vector2 newPastBusPos = pastBus.localPosition;
 
-            newBlockBusPos.x *= -1;
-            newPastBusPos.x *= -1;
-            blockBus.position = newBlockBusPos;
-            pastBus.position = newPastBusPos;
+            newBlockBusPos.x *= -1f;
+            newPastBusPos.x *= -1f;
+
+            blockBus.localPosition = newBlockBusPos;
+            pastBus.localPosition = newPastBusPos;
+            Vector3 newImageScale = image.GetComponent<RectTransform>().localScale;
+            newImageScale.x *= -1;
+            image.GetComponent<RectTransform>().localScale = newImageScale;
         }
     }
 
