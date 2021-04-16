@@ -20,6 +20,7 @@ public class DrivePrompt : MonoBehaviour {
 
     private void Start() {
         startColor = image.color;
+        image.color = Color.clear;
     }
 
     private void OnEnable() {

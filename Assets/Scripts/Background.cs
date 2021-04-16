@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Background : MonoBehaviour {
     public delegate void LeftLaneChange(bool skipAnimation, bool isRushed);
@@ -11,16 +12,40 @@ public class Background : MonoBehaviour {
     public static InitLeftLane OnInitLeftLane;
     public delegate void InitRightLane();
     public static InitRightLane OnInitRightLane;
+    public delegate void ShowBusStop();
+    public static ShowBusStop OnShowBusStop;
+    public delegate void ShowRegular();
+    public static ShowRegular OnShowRegular;
+    public delegate void CheckQueue();
+    public static CheckQueue OnCheckQueue;
 
     public GameObject leftLanePosition;
     public GameObject rightLanePosition;
     public GameObject image;
+    public GameObject regularBackground;
+    public GameObject busStopBackground;
+
+    public Animator busStopAnimator;
+    public Animator regularAnimator;
+
+    Color regularBackgroundColor;
+    Color busStopBackgroundColor;
+
+    bool busStopQueued;
+
+    private void Awake() {
+        regularBackgroundColor = regularBackground.GetComponent<Image>().color;
+        busStopBackgroundColor = busStopBackground.GetComponent<Image>().color;
+    }
 
     private void OnEnable() {
         OnLeftLaneChange += GoToLeftLane;
         OnRightLaneChange += GoToRightLane;
         OnInitLeftLane += InitLeft;
         OnInitRightLane += InitRight;
+        OnShowBusStop += QueueBusStop;
+        OnCheckQueue += CheckIfChangeRequired;
+        OnShowRegular += DisplayRegular;
     }
 
     private void OnDisable() {
@@ -28,6 +53,20 @@ public class Background : MonoBehaviour {
         OnRightLaneChange -= GoToRightLane;
         OnInitLeftLane -= InitLeft;
         OnInitRightLane -= InitRight;
+        OnShowBusStop -= QueueBusStop;
+        OnCheckQueue -= CheckIfChangeRequired;
+        OnShowRegular -= DisplayRegular;
+    }
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Alpha3)) {
+            QueueBusStop();
+        }
+    }
+
+    void QueueBusStop() {
+        busStopQueued = true;
+        //ReduceAnimationSpeed();
     }
 
     public void InitLeft() {
@@ -54,6 +93,37 @@ public class Background : MonoBehaviour {
         } else {
             StartCoroutine(GoToPositionSmooth(rightLanePosition.transform.position, skipAnimation));
         }
+    }
+
+    public void CheckIfChangeRequired() {
+        if (busStopQueued) {
+            busStopQueued = false;
+            GetComponentInChildren<BusStopBackground>().isValid = true;
+            DisplayBusStop();
+            //StartCoroutine(Resume());
+        }
+    }
+
+    IEnumerator Resume() {
+        yield return new WaitForSeconds(5f);
+        Debug.Log("Resume");
+        GetComponentInChildren<BusStopBackground>().GetComponent<Animator>().speed = 0.5f;
+        GetComponentInChildren<RegularBackground>().GetComponent<Animator>().speed = 0.5f;
+    }
+
+    void DisplayRegular() {
+        regularBackground.GetComponent<Image>().color = regularBackgroundColor;
+        busStopBackground.GetComponent<Image>().color = Color.clear;
+    }
+
+    void DisplayBusStop() {
+        regularBackground.GetComponent<Image>().color = Color.clear;
+        busStopBackground.GetComponent<Image>().color = busStopBackgroundColor;
+    }
+
+    void ReduceAnimationSpeed() {
+        busStopAnimator.SetFloat("Multiplier", 0.5f);
+        regularAnimator.SetFloat("Multiplier", 0.5f);
     }
 
     IEnumerator GoToPositionSmooth(Vector3 newPos, bool skipAnimation) {
