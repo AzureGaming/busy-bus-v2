@@ -100,7 +100,7 @@ public class Background : MonoBehaviour {
             busStopQueued = false;
             GetComponentInChildren<BusStopBackground>().isValid = true;
             DisplayBusStop();
-            StartCoroutine(Resume());
+            //StartCoroutine(Resume());
         }
     }
 

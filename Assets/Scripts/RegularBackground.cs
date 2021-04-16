@@ -5,6 +5,6 @@ using UnityEngine.UI;
 
 public class RegularBackground : MonoBehaviour {
     public void CheckIfBackgroundShouldChange() {
-            Background.OnCheckQueue?.Invoke();
+        Background.OnCheckQueue?.Invoke();
     }
 }

@@ -8,5 +8,5 @@ public class StateManager : MonoBehaviour {
         Left,
         Right
     }
-    public static Lane currentLane;
+    public static Lane currentLane = Lane.Left;
 }

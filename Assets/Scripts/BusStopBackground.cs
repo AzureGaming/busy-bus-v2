@@ -9,11 +9,11 @@ public class BusStopBackground : MonoBehaviour {
     bool returnToNormal = false;
     public void StopAnimating() {
         if (isValid) {
-            Debug.Log("Stop animating");
             GetComponent<Animator>().speed = 0;
             regularAnimator.speed = 0;
             isValid = false;
             returnToNormal = true;
+            FareEvent.OnInit?.Invoke();
         }
     }
     public void CheckIfBackgroundShouldChange() {

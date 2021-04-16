@@ -7,15 +7,19 @@ public class Passenger : MonoBehaviour {
     public Sprite sittingSprite;
     public Sprite rowdySprite;
 
+    public float fare;
+
     bool isRowdy = false;
     bool isSitting = false;
     bool isBoarding = false;
 
     public void Board() {
         // Enter fare checking
+        fare = 5f;
     }
 
     public void Leave() {
+        Debug.Log("Passenger Leave");
         // Exit fare checking
     }
 
@@ -24,6 +28,7 @@ public class Passenger : MonoBehaviour {
     }
 
     public void Stay() {
+        Debug.Log("Passenger Stay");
         // Exit fare checking 
         // Enter back of bus
     }
