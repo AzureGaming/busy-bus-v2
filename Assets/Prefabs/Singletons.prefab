@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   regularPassenger: {fileID: 2961317425526824866, guid: 33df4850ec96f1c44b25acc3b1531451, type: 3}
+  fareBox: {fileID: 0}
   boardingPassengers: {fileID: 0}
 --- !u!1 &3368500891826665282
 GameObject:
@@ -137,6 +138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   driveEvent: {fileID: 3368500891826665287}
+  carPrefab: {fileID: 6877036006457090771, guid: 4e6baf77f7c685f4b80250baf679fd7f, type: 3}
+  carSpawnPoint: {fileID: 0}
 --- !u!114 &3368500891826665285
 MonoBehaviour:
   m_ObjectHideFlags: 0
