@@ -3,73 +3,88 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Draggable : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler {
+public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
+    public delegate void RightClickDown();
+    public static RightClickDown OnRightClickDown;
+    public delegate void RightClickUp();
+    public static RightClickUp OnRightClickUp;
+
     public RectTransform boundingArea;
     public RectTransform canvas;
 
-    RectTransform rectTransform;
-    Vector3 startDragPos;
+    const float SPEED = 20f;
+
+    Coroutine dragRoutine;
+    Coroutine followRoutine;
+    Rigidbody2D rb;
+    CircleCollider2D collider;
+    Vector2 startPos;
 
     private void Awake() {
-        rectTransform = GetComponent<RectTransform>();
+        rb = GetComponent<Rigidbody2D>();
+        collider = GetComponent<CircleCollider2D>();
+    }
+
+    private void OnEnable() {
+        OnRightClickDown += GoToMouse;
+        OnRightClickUp += ReturnToStartPosition;
+    }
+
+    private void OnDisable() {
+        OnRightClickDown -= GoToMouse;
+        OnRightClickUp -= ReturnToStartPosition;
     }
 
     private void Start() {
         boundingArea = GameObject.Find("Bounding Area").GetComponent<RectTransform>();
         canvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
-        StartCoroutine(GoToPointer());
+        startPos = transform.position;
     }
 
-    public void OnDrag(PointerEventData eventData) {
-        rectTransform.anchoredPosition += eventData.delta;
-    }
-
-    public void OnEndDrag(PointerEventData eventData) {
-        if (!IsCoinWithinBounds()) {
-            transform.position = startDragPos;
+    public void OnPointerDown(PointerEventData eventData) {
+        if (eventData.button == PointerEventData.InputButton.Left) {
+            dragRoutine = StartCoroutine(FollowMouse());
+            transform.SetAsLastSibling();
         }
     }
 
-    public void OnBeginDrag(PointerEventData eventData) {
-        startDragPos = transform.position;
+    public void OnPointerUp(PointerEventData eventData) {
+        StopAllCoroutines();
     }
 
-    IEnumerator GoToPointer() {
+    void GoToMouse() {
+        // Bug when spamming this function, startPos will update
+        startPos = transform.position;
+        collider.enabled = false;
+        followRoutine = StartCoroutine(FollowMouse());
+    }
+
+    void ReturnToStartPosition() {
+        StopAllCoroutines();
+        StartCoroutine(LerpToPosition(startPos));
+        collider.enabled = true;
+    }
+
+    IEnumerator FollowMouse() {
         for (; ; ) {
-            if (IsMouseWithinBounds() && Input.GetMouseButtonDown(1)) {
-                startDragPos = transform.position;
-                while (Input.GetMouseButton(1)) {
-                    transform.position = Input.mousePosition;
-                    yield return null;
-                }
-                transform.position = startDragPos;
-            } else {
-                yield return null;
-            }
+            rb.velocity = ( (Vector2)Input.mousePosition - (Vector2)transform.position ) * SPEED;
+            yield return null;
         }
     }
 
-    bool IsCoinWithinBounds() {
-        float boundStartX = boundingArea.position.x - ( boundingArea.rect.width / 2 );
-        float boundStartY = boundingArea.position.y - ( boundingArea.rect.height / 2 );
-        float boundEndX = boundingArea.position.x + ( boundingArea.rect.width / 2 );
-        float boundEndY = boundingArea.position.y + ( boundingArea.rect.height / 2 );
+    IEnumerator LerpToPosition(Vector2 endPos) {
+        const float totalTime = 0.09f;
+        float timeElapsed = 0f;
+        Vector2 startPos = transform.position;
 
-        if (transform.position.x < boundStartX || transform.position.y < boundStartY || transform.position.x > boundEndX || transform.position.y > boundEndY) {
-            return false;
+        rb.velocity = Vector2.zero;
+
+        while (timeElapsed < totalTime) {
+            transform.position = Vector2.Lerp(startPos, endPos, ( timeElapsed / totalTime ));
+            timeElapsed += Time.deltaTime;
+            yield return null;
         }
-        return true;
-    }
 
-    bool IsMouseWithinBounds() {
-        float boundStartX = boundingArea.position.x - ( boundingArea.rect.width / 2 );
-        float boundStartY = boundingArea.position.y - ( boundingArea.rect.height / 2 );
-        float boundEndX = boundingArea.position.x + ( boundingArea.rect.width / 2 );
-        float boundEndY = boundingArea.position.y + ( boundingArea.rect.height / 2 );
-
-        if (Input.mousePosition.x < boundStartX || Input.mousePosition.y < boundStartY || Input.mousePosition.x > boundEndX || Input.mousePosition.y > boundEndY) {
-            return false;
-        }
-        return true;
+        transform.position = endPos;
     }
 }
