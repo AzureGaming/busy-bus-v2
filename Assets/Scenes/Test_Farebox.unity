@@ -313,10 +313,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 293803438}
     m_Modifications:
-    - target: {fileID: 5579771852451567621, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5965721112325937609, guid: 1ef610d112146094182d5d241e563842, type: 3}
       propertyPath: m_Name
       value: Fare Box
