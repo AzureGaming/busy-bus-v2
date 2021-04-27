@@ -15,7 +15,6 @@ public class PointerCollect : MonoBehaviour {
             float maxBoundY = boundingArea.offsetMax.y;
             Vector3 minPt = transform.TransformPoint(minBoundX, minBoundY, 0);
             Vector3 maxPt = transform.TransformPoint(maxBoundX, maxBoundY, 0);
-
             if (mouseX > minPt.x && mouseY > minPt.y && mouseX < maxPt.x && mouseY < maxPt.y) {
                 return true;
             }
