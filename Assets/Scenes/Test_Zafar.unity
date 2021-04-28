@@ -664,21 +664,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bus
       objectReference: {fileID: 0}
-    - target: {fileID: 8143592888240433090, guid: 6aa737bfa1e48d246ac1c5f9b6c858cd, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 291.6211
-      objectReference: {fileID: 0}
-    - target: {fileID: 8143592888240433090, guid: 6aa737bfa1e48d246ac1c5f9b6c858cd, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 306.2379
-      objectReference: {fileID: 0}
-    - target: {fileID: 8143592888240433090, guid: 6aa737bfa1e48d246ac1c5f9b6c858cd, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -178.34685
-      objectReference: {fileID: 0}
-    - target: {fileID: 8143592888240433090, guid: 6aa737bfa1e48d246ac1c5f9b6c858cd, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -47.4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6aa737bfa1e48d246ac1c5f9b6c858cd, type: 3}
