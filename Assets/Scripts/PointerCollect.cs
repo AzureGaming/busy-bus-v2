@@ -9,6 +9,7 @@ public class PointerCollect : MonoBehaviour {
         get {
             float mouseX = Input.mousePosition.x;
             float mouseY = Input.mousePosition.y;
+            // Rect transform anchor must be centered for this to work.
             float minBoundX = boundingArea.offsetMin.x;
             float minBoundY = boundingArea.offsetMin.y;
             float maxBoundX = boundingArea.offsetMax.x;
@@ -16,6 +17,7 @@ public class PointerCollect : MonoBehaviour {
             Vector3 minPt = transform.TransformPoint(minBoundX, minBoundY, 0);
             Vector3 maxPt = transform.TransformPoint(maxBoundX, maxBoundY, 0);
             if (mouseX > minPt.x && mouseY > minPt.y && mouseX < maxPt.x && mouseY < maxPt.y) {
+                Debug.Log("Vlaid right click");
                 return true;
             }
             return false;
