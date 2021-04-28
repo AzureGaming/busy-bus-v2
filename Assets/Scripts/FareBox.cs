@@ -25,10 +25,6 @@ public class FareBox : MonoBehaviour {
         OnRemoveFare -= DespawnFare;
     }
 
-    private void Start() {
-        SpawnFare(1f);
-    }
-
     void SpawnFare(float fare) {
         float fareLeft = fare;
         while (fareLeft > 0) {

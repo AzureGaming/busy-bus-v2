@@ -9,6 +9,7 @@ public class PointerCollect : MonoBehaviour {
         get {
             float mouseX = Input.mousePosition.x;
             float mouseY = Input.mousePosition.y;
+            // Rect transform anchor must be centered for this to work.
             float minBoundX = boundingArea.offsetMin.x;
             float minBoundY = boundingArea.offsetMin.y;
             float maxBoundX = boundingArea.offsetMax.x;
