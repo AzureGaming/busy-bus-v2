@@ -111,6 +111,8 @@ MonoBehaviour:
   boardingQueue: {fileID: 3368500891826665281}
   timeOfDay: {fileID: 3368500892181509575}
   eventQueue: {fileID: 3368500891826665283}
+  adultPassenger: {fileID: 2961317425526824866, guid: 33df4850ec96f1c44b25acc3b1531451, type: 3}
+  boardingArea: {fileID: 0}
 --- !u!114 &3368500891826665281
 MonoBehaviour:
   m_ObjectHideFlags: 0

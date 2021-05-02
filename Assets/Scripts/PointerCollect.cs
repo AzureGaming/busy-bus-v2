@@ -17,7 +17,6 @@ public class PointerCollect : MonoBehaviour {
             Vector3 minPt = transform.TransformPoint(minBoundX, minBoundY, 0);
             Vector3 maxPt = transform.TransformPoint(maxBoundX, maxBoundY, 0);
             if (mouseX > minPt.x && mouseY > minPt.y && mouseX < maxPt.x && mouseY < maxPt.y) {
-                Debug.Log("Vlaid right click");
                 return true;
             }
             return false;
@@ -26,10 +25,12 @@ public class PointerCollect : MonoBehaviour {
 
     private void Update() {
         if (Input.GetMouseButtonDown(1) && isValidRightClick) {
+            GameManager.isPlayerHoldingCoins = true;
             Draggable.OnRightClickDown?.Invoke();
         }
 
         if (Input.GetMouseButtonUp(1)) {
+            GameManager.isPlayerHoldingCoins = false;
             Draggable.OnRightClickUp?.Invoke();
         }
     }

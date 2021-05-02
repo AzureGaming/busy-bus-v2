@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
     public delegate void RightClickDown();
@@ -55,11 +56,13 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
     void GoToMouse() {
         // Bug when spamming this function, startPos will update
         startPos = transform.position;
+        GetComponentInChildren<Image>().raycastTarget = false;
         collider.enabled = false;
         followRoutine = StartCoroutine(FollowMouse());
     }
 
     void ReturnToStartPosition() {
+        GetComponentInChildren<Image>().raycastTarget = true;
         StopAllCoroutines();
         StartCoroutine(LerpToPosition(startPos));
         collider.enabled = true;

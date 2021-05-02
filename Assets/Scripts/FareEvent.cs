@@ -5,19 +5,17 @@ using UnityEngine;
 public class FareEvent : BusEvent {
     public delegate void Init();
     public static Init OnInit;
+    public delegate void RejectPayment();
+    public static RejectPayment OnRejectPayment;
+
     public GameObject regularPassenger;
     public GameObject fareBox;
     public Transform boardingPassengers;
 
-    float expectedFare;
-    float paidFare;
     bool? playerDecision;
     bool isCorrectResponse;
 
-    const float ADULT_FARE = 6f;
-
     Coroutine getPlayerResponse;
-    Passenger currentPassenger;
 
     private void Awake() {
         type = EventType.Fare;
@@ -26,10 +24,18 @@ public class FareEvent : BusEvent {
 
     private void OnEnable() {
         OnInit += Begin;
+        OnRejectPayment += Reject;
     }
 
     private void OnDisable() {
         OnInit -= Begin;
+        OnRejectPayment -= Reject;
+    }
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            Begin();
+        }
     }
 
     void Begin() {
@@ -37,10 +43,12 @@ public class FareEvent : BusEvent {
     }
 
     public void Accept() {
+        // Must be called to progress event
         playerDecision = true;
     }
 
     public void Reject() {
+        // Must be called to progress event
         playerDecision = false;
     }
 
@@ -50,7 +58,7 @@ public class FareEvent : BusEvent {
             return false;
         }
 
-        if (BoardingPassengers.currentPassenger.fare >= ADULT_FARE) { // if payment valid
+        if (GameManager.currentPassenger.paidFare >= GameManager.ADULT_FARE) { // if payment valid
             isCorrectResponse = true;
             return (bool)playerDecision;
         } else { // if payment invalid
@@ -63,19 +71,19 @@ public class FareEvent : BusEvent {
         if (isCorrectResponse && (bool)playerDecision) {
             // if valid payment accept
             // Passenger moves to back of bus
-            BoardingPassengers.currentPassenger.Stay();
+            GameManager.currentPassenger.Stay();
         } else if (isCorrectResponse && (bool)!playerDecision) {
             // if valid payment reject
             // Passenger gets off bus
-            BoardingPassengers.currentPassenger.Leave();
+            GameManager.currentPassenger.Leave();
         } else if (!isCorrectResponse && (bool)playerDecision) {
             // if invalid payment accept
             // Passenger moves to back of bus
-            BoardingPassengers.currentPassenger.Stay();
+            GameManager.currentPassenger.Stay();
         } else {
             // if invalid payment reject
             // Passenger gets off bus  
-            BoardingPassengers.currentPassenger.Leave();
+            GameManager.currentPassenger.Leave();
         }
     }
 
@@ -107,12 +115,7 @@ public class FareEvent : BusEvent {
     }
 
     void SetupEvent() {
-        BoardingPassengers.OnBoard?.Invoke();
+        GameManager.OnBoardPassenger?.Invoke();
         fareBox.SetActive(true);
-        FillFareBox();
-    }
-
-    void FillFareBox() {
-        Debug.LogWarning("TODO: Implement FillFareBox");
     }
 }

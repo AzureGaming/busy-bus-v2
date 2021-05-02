@@ -59,9 +59,9 @@ public class Background : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Alpha3)) {
-            QueueBusStop();
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha3)) {
+        //    QueueBusStop();
+        //}
     }
 
     void QueueBusStop() {

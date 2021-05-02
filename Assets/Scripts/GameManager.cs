@@ -10,10 +10,22 @@ public class GameManager : MonoBehaviour {
     public static CompleteDay OnCompleteDay;
     public delegate void StartDay();
     public static StartDay OnStartDay;
+    public delegate void BoardPassenger();
+    public static BoardPassenger OnBoardPassenger;
+
+    public static Passenger currentPassenger;
 
     public BoardingQueue boardingQueue;
     public TimeOfDay timeOfDay;
     public EventQueue eventQueue;
+    public GameObject adultPassenger;
+    public Transform boardingArea;
+
+    public const float CHILD_FARE = 1f;
+    public const float ADULT_FARE = 2f;
+    public const float SENIOR_FARE = 3f;
+
+    public static bool isPlayerHoldingCoins;
 
     bool dayOver;
 
@@ -21,12 +33,14 @@ public class GameManager : MonoBehaviour {
         OnFailDay += GameOver;
         OnStartDay += StartTheDay;
         OnCompleteDay += CompleteTheDay;
+        OnBoardPassenger += LoadPassenger;
     }
 
     private void OnDisable() {
         OnFailDay -= GameOver;
         OnStartDay -= StartTheDay;
         OnCompleteDay -= CompleteTheDay;
+        OnBoardPassenger -= LoadPassenger;
     }
 
     private void Start() {
@@ -49,5 +63,11 @@ public class GameManager : MonoBehaviour {
 
     void CompleteTheDay() {
         dayOver = true;
+    }
+
+    void LoadPassenger() {
+        // TODO: Separate into UI concerns
+        currentPassenger = Instantiate(adultPassenger, boardingArea).GetComponent<Passenger>();
+        currentPassenger.Board();
     }
 }
