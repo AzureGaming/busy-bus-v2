@@ -17,6 +17,7 @@ public class PointerCollect : MonoBehaviour {
             Vector3 minPt = transform.TransformPoint(minBoundX, minBoundY, 0);
             Vector3 maxPt = transform.TransformPoint(maxBoundX, maxBoundY, 0);
             if (mouseX > minPt.x && mouseY > minPt.y && mouseX < maxPt.x && mouseY < maxPt.y) {
+                Debug.Log("Vlaid right click");
                 return true;
             }
             return false;
