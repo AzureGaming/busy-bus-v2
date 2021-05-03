@@ -32,15 +32,6 @@ public class DriveEvent : BusEvent {
         timeToWait = 5f;
     }
 
-    private void Start() {
-        // Move to somewhere else?
-        if (GameManager.currentLane == GameManager.Lane.Left) {
-            Background.OnInitLeftLane?.Invoke();
-        } else {
-            Background.OnInitRightLane?.Invoke();
-        }
-    }
-
     public void BeginEvent() {
         SetupBaseEvent();
         SelectLane();

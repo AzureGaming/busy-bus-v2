@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public static bool isPlayerHoldingCoins;
-    public static Lane currentLane = Lane.Left;
+    public static Lane currentLane = Lane.Right;
 
     bool dayOver;
 

@@ -25,7 +25,8 @@ public class Background : MonoBehaviour {
     public GameObject rightLanePosition;
     public GameObject image;
     public GameObject regularBackground;
-    public GameObject busStopBackground;
+    public GameObject busStopLeftBackground;
+    public GameObject busStopRightBackground;
 
     public Animator busStopAnimator;
     public Animator regularAnimator;
@@ -37,7 +38,7 @@ public class Background : MonoBehaviour {
 
     private void Awake() {
         regularBackgroundColor = regularBackground.GetComponent<Image>().color;
-        busStopBackgroundColor = busStopBackground.GetComponent<Image>().color;
+        busStopBackgroundColor = busStopLeftBackground.GetComponent<Image>().color;
     }
 
     private void OnEnable() {
@@ -60,6 +61,14 @@ public class Background : MonoBehaviour {
         OnCheckQueue -= CheckIfChangeRequired;
         OnShowRegular -= DisplayRegular;
         OnResumeDriving -= Resume;
+    }
+
+    private void Start() {
+        if (GameManager.currentLane == GameManager.Lane.Left) {
+            InitLeft();
+        } else {
+            InitRight();
+        }
     }
 
     private void Update() {
@@ -102,26 +111,43 @@ public class Background : MonoBehaviour {
     public void CheckIfChangeRequired() {
         if (busStopQueued) {
             busStopQueued = false;
-            GetComponentInChildren<BusStopBackground>().shouldTriggerEvent = true;
+            TriggerBusStop();
             DisplayBusStop();
-            //StartCoroutine(Resume());
+        }
+    }
+
+    void TriggerBusStop() {
+        if (GameManager.currentLane == GameManager.Lane.Left) {
+            busStopLeftBackground.GetComponent<BusStopBackground>().shouldTriggerEvent = true;
+        } else {
+            busStopRightBackground.GetComponent<BusStopBackground>().shouldTriggerEvent = true;
         }
     }
 
     void Resume() {
         busStopQueued = false;
-        GetComponentInChildren<BusStopBackground>().GetComponent<Animator>().speed = 1f;
+        BusStopBackground[] busStopBackgrounds = GetComponentsInChildren<BusStopBackground>();
+        foreach (BusStopBackground bg in busStopBackgrounds) {
+            bg.GetComponent<Animator>().speed = 1f;
+        }
         GetComponentInChildren<RegularBackground>().GetComponent<Animator>().speed = 1f;
     }
 
     void DisplayRegular() {
         regularBackground.GetComponent<Image>().color = regularBackgroundColor;
-        busStopBackground.GetComponent<Image>().color = Color.clear;
+        busStopLeftBackground.GetComponent<Image>().color = Color.clear;
+        busStopRightBackground.GetComponent<Image>().color = Color.clear;
     }
 
     void DisplayBusStop() {
         regularBackground.GetComponent<Image>().color = Color.clear;
-        busStopBackground.GetComponent<Image>().color = busStopBackgroundColor;
+        if (GameManager.currentLane == GameManager.Lane.Left) {
+            busStopLeftBackground.GetComponent<Image>().color = busStopBackgroundColor;
+            busStopRightBackground.GetComponent<Image>().color = Color.clear;
+        } else {
+            busStopLeftBackground.GetComponent<Image>().color = Color.clear;
+            busStopRightBackground.GetComponent<Image>().color = busStopBackgroundColor;
+        }
     }
 
     void ReduceAnimationSpeed() {
