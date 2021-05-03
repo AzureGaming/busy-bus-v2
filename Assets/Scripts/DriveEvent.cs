@@ -33,10 +33,10 @@ public class DriveEvent : BusEvent {
     }
 
     public void BeginEvent() {
-        SetupBaseEvent();
-        SelectLane();
-        DisplayPrompt();
-        getPlayerResponse = StartCoroutine(GetPlayerResponse());
+        //SetupBaseEvent();
+        //SelectLane();
+        //DisplayPrompt();
+        //getPlayerResponse = StartCoroutine(GetPlayerResponse());
     }
 
     protected override bool IsResponseCorrect() {
