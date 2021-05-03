@@ -44,8 +44,7 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
 
     public void Leave() {
-        Debug.Log("Passenger Leave");
-        // Exit fare checking
+        Destroy(gameObject);
     }
 
     public void Kick() {

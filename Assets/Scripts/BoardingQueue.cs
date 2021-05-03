@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class BoardingQueue : MonoBehaviour {
     // TODO: should be a singleton
-    public GameObject passengerPrefab;
+    public delegate void SetupFareEvent();
+    public static SetupFareEvent SpawnPassengers;
+
+    public GameObject adultPrefab;
+    public GameObject seniorPrefab;
+    public GameObject childPrefab;
+
     public List<GameObject> commuters {
         get;
         private set;
@@ -14,18 +20,54 @@ public class BoardingQueue : MonoBehaviour {
         commuters = new List<GameObject>();
     }
 
-    public void Queue() {
-        GameObject passenger = Instantiate(passengerPrefab);
-        commuters.Add(passenger);
+    private void OnEnable() {
+        SpawnPassengers += LoadBoardingPassengers;
     }
 
-    public void Queue(int amount) {
+    public void Clear() {
+        commuters.Clear();
+    }
+
+    void LoadBoardingPassengers() {
+        Queue();
+    }
+
+    void Queue() {
+        //int randomPassenger = Random.Range(0, 3);
+        //GameObject randomPrefab;
+        //switch (randomPassenger) {
+        //    case 0: {
+        //        randomPrefab = adultPrefab;
+        //        break;
+        //    }
+        //    case 1: {
+        //        randomPrefab = seniorPrefab;
+        //        break;
+        //    }
+        //    case 2: {
+        //        randomPrefab = childPrefab;
+        //        break;
+        //    }
+        //    default: {
+        //        randomPrefab = adultPrefab;
+        //        break;
+        //    }
+        //}
+        //GameObject passengerInstantiation = Instantiate(randomPrefab);
+        GameObject passengerInstantiation = Instantiate(adultPrefab, transform);
+
+        commuters.Add(passengerInstantiation);
+        passengerInstantiation.GetComponent<Passenger>().Board();
+        GameManager.currentPassenger = passengerInstantiation.GetComponent<Passenger>();
+    }
+
+    void Queue(int amount) {
         for (int i = 0; i < amount; i++) {
             Queue();
         }
     }
 
-    public GameObject Dequeue() {
+    GameObject Dequeue() {
         if (commuters.Count < 1) {
             Debug.LogWarning("Queue is empty!");
             return null;
@@ -36,9 +78,5 @@ public class BoardingQueue : MonoBehaviour {
 
         commuters.RemoveAt(lastIndex);
         return passenger;
-    }
-
-    public void Clear() {
-        commuters.Clear();
     }
 }

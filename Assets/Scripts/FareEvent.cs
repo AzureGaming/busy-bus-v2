@@ -82,15 +82,24 @@ public class FareEvent : BusEvent {
         } else if (isCorrectResponse && (bool)!playerDecision) {
             // if valid payment reject
             // Passenger gets off bus
+            FareBox.OnRemoveFare?.Invoke();
+            fareBox.SetActive(false);
             GameManager.currentPassenger.Leave();
+            Background.OnResumeDriving?.Invoke();
         } else if (!isCorrectResponse && (bool)playerDecision) {
             // if invalid payment accept
             // Passenger moves to back of bus
+            FareBox.OnRemoveFare?.Invoke();
+            fareBox.SetActive(false);
             GameManager.currentPassenger.Stay();
+            Background.OnResumeDriving?.Invoke();
         } else {
             // if invalid payment reject
             // Passenger gets off bus  
+            FareBox.OnRemoveFare?.Invoke();
+            fareBox.SetActive(false);
             GameManager.currentPassenger.Leave();
+            Background.OnResumeDriving?.Invoke();
         }
     }
 
@@ -123,6 +132,6 @@ public class FareEvent : BusEvent {
 
     void SetupEvent() {
         fareBox.SetActive(true);
-        GameManager.OnBoardPassenger?.Invoke();
+        BoardingQueue.SpawnPassengers?.Invoke();
     }
 }
