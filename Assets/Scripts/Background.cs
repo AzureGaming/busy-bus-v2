@@ -18,6 +18,8 @@ public class Background : MonoBehaviour {
     public static ShowRegular OnShowRegular;
     public delegate void CheckQueue();
     public static CheckQueue OnCheckQueue;
+    public delegate void ResumeDriving();
+    public static ResumeDriving OnResumeDriving;
 
     public GameObject leftLanePosition;
     public GameObject rightLanePosition;
@@ -46,6 +48,7 @@ public class Background : MonoBehaviour {
         OnShowBusStop += QueueBusStop;
         OnCheckQueue += CheckIfChangeRequired;
         OnShowRegular += DisplayRegular;
+        OnResumeDriving += Resume;
     }
 
     private void OnDisable() {
@@ -56,12 +59,13 @@ public class Background : MonoBehaviour {
         OnShowBusStop -= QueueBusStop;
         OnCheckQueue -= CheckIfChangeRequired;
         OnShowRegular -= DisplayRegular;
+        OnResumeDriving -= Resume;
     }
 
     private void Update() {
-        //if (Input.GetKeyDown(KeyCode.Alpha3)) {
-        //    QueueBusStop();
-        //}
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            QueueBusStop();
+        }
     }
 
     void QueueBusStop() {
@@ -98,17 +102,16 @@ public class Background : MonoBehaviour {
     public void CheckIfChangeRequired() {
         if (busStopQueued) {
             busStopQueued = false;
-            GetComponentInChildren<BusStopBackground>().isValid = true;
+            GetComponentInChildren<BusStopBackground>().shouldTriggerEvent = true;
             DisplayBusStop();
             //StartCoroutine(Resume());
         }
     }
 
-    IEnumerator Resume() {
-        yield return new WaitForSeconds(5f);
-        Debug.Log("Resume");
-        GetComponentInChildren<BusStopBackground>().GetComponent<Animator>().speed = 0.5f;
-        GetComponentInChildren<RegularBackground>().GetComponent<Animator>().speed = 0.5f;
+    void Resume() {
+        busStopQueued = false;
+        GetComponentInChildren<BusStopBackground>().GetComponent<Animator>().speed = 1f;
+        GetComponentInChildren<RegularBackground>().GetComponent<Animator>().speed = 1f;
     }
 
     void DisplayRegular() {

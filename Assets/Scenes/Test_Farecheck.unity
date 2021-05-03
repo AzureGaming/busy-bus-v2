@@ -328,6 +328,54 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 3014568285082083178, guid: ed1cc7c961bb81745b0c9862c0d119b9, type: 3}
   m_PrefabInstance: {fileID: 1077649518}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &131313404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 131313405}
+  - component: {fileID: 131313406}
+  m_Layer: 5
+  m_Name: Back Of Bus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &131313405
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131313404}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1510149504}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -778, y: 390}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &131313406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131313404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a80e054b7a4414484495c409f4de37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &405990421 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9091509762916010532, guid: ed1cc7c961bb81745b0c9862c0d119b9, type: 3}
@@ -1233,6 +1281,7 @@ RectTransform:
   - {fileID: 1222192190}
   - {fileID: 1878208788}
   - {fileID: 2136691710}
+  - {fileID: 131313405}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1404,8 +1453,7 @@ PrefabInstance:
       propertyPath: boardingArea
       value: 
       objectReference: {fileID: 1222192190}
-    m_RemovedComponents:
-    - {fileID: 3368500891826665306, guid: b49fd51bf980bc4498e606d6d5e96bc4, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b49fd51bf980bc4498e606d6d5e96bc4, type: 3}
 --- !u!1001 &3591136188488509289
 PrefabInstance:

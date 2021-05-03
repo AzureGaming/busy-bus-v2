@@ -53,9 +53,7 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
 
     public void Stay() {
-        Debug.Log("Passenger Stay");
-        // Exit fare checking 
-        // Enter back of bus
+        BackOfBus.OnMoveToBack?.Invoke(gameObject);
     }
 
     void PayFare() {

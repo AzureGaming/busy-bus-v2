@@ -7,6 +7,8 @@ public class FareEvent : BusEvent {
     public static Init OnInit;
     public delegate void RejectPayment();
     public static RejectPayment OnRejectPayment;
+    public delegate void AcceptPayment();
+    public static AcceptPayment OnAcceptPayment;
 
     public GameObject regularPassenger;
     public GameObject fareBox;
@@ -25,17 +27,19 @@ public class FareEvent : BusEvent {
     private void OnEnable() {
         OnInit += Begin;
         OnRejectPayment += Reject;
+        OnAcceptPayment += Accept;
     }
 
     private void OnDisable() {
         OnInit -= Begin;
         OnRejectPayment -= Reject;
+        OnAcceptPayment -= Accept;
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            Begin();
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha1)) {
+        //    Begin();
+        //}
     }
 
     void Begin() {
@@ -59,19 +63,22 @@ public class FareEvent : BusEvent {
         }
 
         if (GameManager.currentPassenger.paidFare >= GameManager.ADULT_FARE) { // if payment valid
-            isCorrectResponse = true;
+            isCorrectResponse = (bool)playerDecision;
             return (bool)playerDecision;
         } else { // if payment invalid
-            isCorrectResponse = false;
+            isCorrectResponse = (bool)!playerDecision;
             return (bool)!playerDecision;
         }
     }
 
-    protected override void OnEvaluate() {
+    protected override void EventSpecific() {
         if (isCorrectResponse && (bool)playerDecision) {
             // if valid payment accept
             // Passenger moves to back of bus
+            FareBox.OnRemoveFare?.Invoke();
+            fareBox.SetActive(false);
             GameManager.currentPassenger.Stay();
+            Background.OnResumeDriving?.Invoke();
         } else if (isCorrectResponse && (bool)!playerDecision) {
             // if valid payment reject
             // Passenger gets off bus
@@ -115,7 +122,7 @@ public class FareEvent : BusEvent {
     }
 
     void SetupEvent() {
-        GameManager.OnBoardPassenger?.Invoke();
         fareBox.SetActive(true);
+        GameManager.OnBoardPassenger?.Invoke();
     }
 }

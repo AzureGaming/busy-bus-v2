@@ -54,7 +54,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
     }
 
     void GoToMouse() {
-        // Bug when spamming this function, startPos will update
+        // Bug: when spamming this function, startPos will update
         startPos = transform.position;
         GetComponentInChildren<Image>().raycastTarget = false;
         collider.enabled = false;
@@ -62,6 +62,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
     }
 
     void ReturnToStartPosition() {
+        // Bug: causes some movement even when coins have not moved
         GetComponentInChildren<Image>().raycastTarget = true;
         StopAllCoroutines();
         StartCoroutine(LerpToPosition(startPos));

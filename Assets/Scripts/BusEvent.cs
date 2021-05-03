@@ -38,11 +38,15 @@ public abstract class BusEvent : MonoBehaviour {
     protected virtual void OnTimeout() {
     }
 
+    protected virtual void EventSpecific() {
+    }
+
     IEnumerator EventRoutine() {
         yield return new WaitUntil(() => hasResponded);
         StopCoroutine(timeoutRoutine);
         OnEvaluate();
         Evaluate();
+        EventSpecific();
     }
 
     IEnumerator Timeout() {
@@ -56,16 +60,13 @@ public abstract class BusEvent : MonoBehaviour {
     }
 
     void Evaluate() {
-        // TODO: handle valid payment accept
-        // TODO: handle valid payment reject
-        // TODO: handle invalid payment accept
-        // TODO: handle invalid payment reject
         if (IsResponseCorrect()) {
             Pass();
         } else {
             Fail();
         }
     }
+
 
     void Pass() {
         EventRating.OnRateEvent?.Invoke(type, timeElapsed, timeToWait);
