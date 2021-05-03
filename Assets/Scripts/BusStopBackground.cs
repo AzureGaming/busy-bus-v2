@@ -4,14 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class BusStopBackground : MonoBehaviour {
-    public bool shouldTriggerEvent;
     public Animator regularAnimator;
+    public Animator busStopAnimator;
+
+    public bool shouldTriggerEvent;
+
     bool returnToNormal = false;
 
     public void OnFrameBesideBusStop() {
         if (shouldTriggerEvent) {
-            GetComponent<Animator>().speed = 0;
-            regularAnimator.speed = 0;
+            GetComponent<Animator>().speed = 0f;
+            busStopAnimator.speed = 0f;
+            regularAnimator.speed = 0f;
             shouldTriggerEvent = false;
             returnToNormal = true;
             FareEvent.OnInit?.Invoke();

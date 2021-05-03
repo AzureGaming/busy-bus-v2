@@ -90,7 +90,7 @@ public class Background : MonoBehaviour {
         image.transform.position = rightLanePosition.transform.position;
     }
 
-    public void GoToLeftLane(bool skipAnimation, bool isRushed) {
+    void GoToLeftLane(bool skipAnimation, bool isRushed) {
         StopAllCoroutines();
         if (isRushed) {
             StartCoroutine(GoToPositionRush(leftLanePosition.transform.position));
@@ -99,7 +99,7 @@ public class Background : MonoBehaviour {
         }
     }
 
-    public void GoToRightLane(bool skipAnimation, bool isRushed) {
+    void GoToRightLane(bool skipAnimation, bool isRushed) {
         StopAllCoroutines();
         if (isRushed) {
             StartCoroutine(GoToPositionRush(rightLanePosition.transform.position));
