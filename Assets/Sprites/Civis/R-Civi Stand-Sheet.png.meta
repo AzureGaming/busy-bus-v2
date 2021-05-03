@@ -8,6 +8,9 @@ TextureImporter:
   - first:
       213: -3705020726943333425
     second: R-Civi Stand-Sheet_1
+  - first:
+      213: 475695740420495825
+    second: R-Civi Stand-Sheet_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -100,10 +103,10 @@ TextureImporter:
       name: R-Civi Stand-Sheet_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
-        width: 22
-        height: 88
+        x: 0
+        y: 0
+        width: 28
+        height: 90
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,10 +124,10 @@ TextureImporter:
       name: R-Civi Stand-Sheet_1
       rect:
         serializedVersion: 2
-        x: 25
-        y: 1
-        width: 22
-        height: 88
+        x: 28
+        y: 0
+        width: 28
+        height: 90
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,6 +137,27 @@ TextureImporter:
       bones: []
       spriteID: fc34515674f159cc0800000000000000
       internalID: -3705020726943333425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R-Civi Stand-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 0
+        width: 28
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d91eec61c20a9600800000000000000
+      internalID: 475695740420495825
       vertices: []
       indices: 
       edges: []

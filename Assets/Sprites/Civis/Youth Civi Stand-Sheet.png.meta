@@ -8,6 +8,9 @@ TextureImporter:
   - first:
       213: 4395576093277467418
     second: Youth Civi Stand-Sheet_1
+  - first:
+      213: -7706941098659240679
+    second: Youth Civi Stand-Sheet_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -100,10 +103,10 @@ TextureImporter:
       name: Youth Civi Stand-Sheet_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 1
-        width: 27
-        height: 71
+        x: 0
+        y: 0
+        width: 31
+        height: 72
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,10 +124,10 @@ TextureImporter:
       name: Youth Civi Stand-Sheet_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1
-        width: 29
-        height: 71
+        x: 31
+        y: 0
+        width: 31
+        height: 72
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,6 +137,27 @@ TextureImporter:
       bones: []
       spriteID: a13b0070b29300d30800000000000000
       internalID: 4395576093277467418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Youth Civi Stand-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 0
+        width: 31
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 915ae8567e17b0590800000000000000
+      internalID: -7706941098659240679
       vertices: []
       indices: 
       edges: []
