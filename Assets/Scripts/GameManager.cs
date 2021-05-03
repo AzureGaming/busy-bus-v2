@@ -23,7 +23,13 @@ public class GameManager : MonoBehaviour {
     public const float ADULT_FARE = 2f;
     public const float SENIOR_FARE = 3f;
 
+    public enum Lane {
+        Left,
+        Right
+    }
+
     public static bool isPlayerHoldingCoins;
+    public static Lane currentLane = Lane.Left;
 
     bool dayOver;
 

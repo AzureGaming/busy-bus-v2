@@ -57,7 +57,6 @@ GameObject:
   - component: {fileID: 3368500891826665284}
   - component: {fileID: 3368500891826665287}
   - component: {fileID: 3368500891826665286}
-  - component: {fileID: 3368500891826665281}
   - component: {fileID: 3368500891826665283}
   - component: {fileID: 3368500891826665285}
   - component: {fileID: 3368500891826665280}
@@ -108,24 +107,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716aaa4ad43ad77429a872df79c1a8d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardingQueue: {fileID: 3368500891826665281}
+  boardingQueue: {fileID: 0}
   timeOfDay: {fileID: 3368500892181509575}
   eventQueue: {fileID: 3368500891826665283}
   adultPassenger: {fileID: 2961317425526824866, guid: 33df4850ec96f1c44b25acc3b1531451, type: 3}
   boardingArea: {fileID: 0}
---- !u!114 &3368500891826665281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3368500891826665282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ac1caad076572441a2327bfd6d2150a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  passengerPrefab: {fileID: 0}
 --- !u!114 &3368500891826665283
 MonoBehaviour:
   m_ObjectHideFlags: 0
