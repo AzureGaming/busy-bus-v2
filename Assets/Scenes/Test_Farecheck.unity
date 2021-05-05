@@ -1014,17 +1014,6 @@ MonoBehaviour:
   adultPrefab: {fileID: 2961317425526824866, guid: 33df4850ec96f1c44b25acc3b1531451, type: 3}
   seniorPrefab: {fileID: 2961317425526824866, guid: 669f0b295eecf8f4592e90e26920d16f, type: 3}
   childPrefab: {fileID: 2961317425526824866, guid: ce5f657d14a699442b867284144d61d1, type: 3}
---- !u!114 &1320280666 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3368500891556888304, guid: b49fd51bf980bc4498e606d6d5e96bc4, type: 3}
-  m_PrefabInstance: {fileID: 3368500892522536106}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 853127273aa91234b857802dd6c97d79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1369144727
 GameObject:
   m_ObjectHideFlags: 0
@@ -1538,98 +1527,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1510149504}
     m_Modifications:
-    - target: {fileID: 1567177072, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1320280666}
-    - target: {fileID: 1664330531, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1320280666}
-    - target: {fileID: 1520146991623615125, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_Size.x
-      value: 369
-      objectReference: {fileID: 0}
-    - target: {fileID: 1520146991623615125, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_Size.y
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1520146991623615125, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1843343045176865430, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_Size.x
-      value: 369
-      objectReference: {fileID: 0}
-    - target: {fileID: 1843343045176865430, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_Size.y
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1843343045176865430, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2051213407944389933, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2051213407944389933, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2051213407944389933, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2051213407944389933, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2051213407944389933, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 360
-      objectReference: {fileID: 0}
-    - target: {fileID: 2051213407944389933, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 96
-      objectReference: {fileID: 0}
-    - target: {fileID: 2051213407944389933, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.000030517578
-      objectReference: {fileID: 0}
-    - target: {fileID: 2051213407944389933, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.000015258789
-      objectReference: {fileID: 0}
-    - target: {fileID: 3012739986183002037, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_Size.x
-      value: 16.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3012739986183002037, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_Size.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3012739986183002037, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5293191942300732380, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_Size.x
-      value: 16.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5293191942300732380, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_Size.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5293191942300732380, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5809100139886097311, guid: 1ef610d112146094182d5d241e563842, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5965721112325937609, guid: 1ef610d112146094182d5d241e563842, type: 3}
       propertyPath: m_Name
       value: Fare Box
