@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Front Door
+  m_Name: Backdoor
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,11 +20,9 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -605438843603209322, guid: 0235853a46bc5b04abfb8abe408664cc, type: 3}
+      value: {fileID: 254156513932642925, guid: 3342f0a83664433458b951b0430aeef9, type: 3}
     - time: 0.016666668
-      value: {fileID: -1928719555831620826, guid: 0235853a46bc5b04abfb8abe408664cc, type: 3}
-    - time: 0.033333335
-      value: {fileID: -6102623430622359821, guid: 0235853a46bc5b04abfb8abe408664cc, type: 3}
+      value: {fileID: -7452207497970993481, guid: 3342f0a83664433458b951b0430aeef9, type: 3}
     attribute: m_Sprite
     path: 
     classID: 114
@@ -44,15 +42,14 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -605438843603209322, guid: 0235853a46bc5b04abfb8abe408664cc, type: 3}
-    - {fileID: -1928719555831620826, guid: 0235853a46bc5b04abfb8abe408664cc, type: 3}
-    - {fileID: -6102623430622359821, guid: 0235853a46bc5b04abfb8abe408664cc, type: 3}
+    - {fileID: 254156513932642925, guid: 3342f0a83664433458b951b0430aeef9, type: 3}
+    - {fileID: -7452207497970993481, guid: 3342f0a83664433458b951b0430aeef9, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.050000004
+    m_StopTime: 0.033333335
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
