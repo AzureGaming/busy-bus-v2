@@ -17,7 +17,7 @@ public class DriveEvent : BusEvent {
 
     KeyCode expectedKey;
     Coroutine getPlayerResponse;
-    GameManager.Lane expectedLane;
+    Bus.Lane expectedLane;
 
     private void OnEnable() {
         OnInitEvent += BeginEvent;
@@ -52,33 +52,27 @@ public class DriveEvent : BusEvent {
             StopCoroutine(getPlayerResponse);
         }
         HidePrompt();
-        ChangeLane(false, true);
+        ChangeLane(true);
     }
 
     void SelectLane() {
-        if (GameManager.currentLane == GameManager.Lane.Left) {
-            expectedLane = GameManager.Lane.Right;
+        if (Bus.currentLane == Bus.Lane.Left) {
+            expectedLane = Bus.Lane.Right;
             expectedKey = KeyCode.D;
         } else {
-            expectedLane = GameManager.Lane.Left;
+            expectedLane = Bus.Lane.Left;
             expectedKey = KeyCode.A;
         }
     }
 
-    void ChangeLane(bool skipAnimation = false, bool isRushed = false) {
-        if (expectedLane == GameManager.Lane.Left) {
-            Background.OnLeftLaneChange?.Invoke(skipAnimation, isRushed);
-            GameManager.currentLane = GameManager.Lane.Left;
-        } else {
-            Background.OnRightLaneChange?.Invoke(skipAnimation, isRushed);
-            GameManager.currentLane = GameManager.Lane.Right;
-        }
+    void ChangeLane(bool isRushed = false) {
+        Bus.OnLaneChange?.Invoke(expectedLane, isRushed);
         Car.OnBusLaneChange?.Invoke();
     }
 
     void DisplayPrompt() {
         isPrompted = true;
-        if (expectedLane == GameManager.Lane.Left) {
+        if (expectedLane == Bus.Lane.Left) {
             DrivePrompt.OnLeftLaneChange?.Invoke();
         } else {
             DrivePrompt.OnRightLaneChange?.Invoke();

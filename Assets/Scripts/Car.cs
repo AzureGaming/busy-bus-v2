@@ -94,7 +94,7 @@ public class Car : MonoBehaviour {
     }
 
     void Flip() {
-        if (GameManager.currentLane == GameManager.Lane.Left) {
+        if (Bus.currentLane == Bus.Lane.Left) {
             blockBus.position = startBlockBusPos;
             pastBus.position = startPastBusPos;
         } else {

@@ -58,7 +58,7 @@ public class BoardingQueue : MonoBehaviour {
 
         commuters.Add(passengerInstantiation);
         passengerInstantiation.GetComponent<Passenger>().Board();
-        GameManager.currentPassenger = passengerInstantiation.GetComponent<Passenger>();
+        Bus.currentPassenger = passengerInstantiation.GetComponent<Passenger>();
     }
 
     void Queue(int amount) {

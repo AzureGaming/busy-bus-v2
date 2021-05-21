@@ -36,12 +36,6 @@ public class FareEvent : BusEvent {
         OnAcceptPayment -= Accept;
     }
 
-    private void Update() {
-        //if (Input.GetKeyDown(KeyCode.Alpha1)) {
-        //    Begin();
-        //}
-    }
-
     void Begin() {
         StartCoroutine(BeginRoutine());
     }
@@ -62,7 +56,7 @@ public class FareEvent : BusEvent {
             return false;
         }
 
-        if (GameManager.currentPassenger.paidFare >= GameManager.ADULT_FARE) { // if payment valid
+        if (Bus.currentPassenger.paidFare >= GameManager.ADULT_FARE) { // if payment valid
             isCorrectResponse = (bool)playerDecision;
             return (bool)playerDecision;
         } else { // if payment invalid
@@ -73,34 +67,17 @@ public class FareEvent : BusEvent {
 
     protected override void EventSpecific() {
         if (isCorrectResponse && (bool)playerDecision) {
-            // if valid payment accept
-            // Passenger moves to back of bus
-            FareBox.OnRemoveFare?.Invoke();
-            fareBox.SetActive(false);
-            GameManager.currentPassenger.Stay();
-            Background.OnResumeDriving?.Invoke();
+            Bus.currentPassenger.Stay();
         } else if (isCorrectResponse && (bool)!playerDecision) {
-            // if valid payment reject
-            // Passenger gets off bus
-            FareBox.OnRemoveFare?.Invoke();
-            fareBox.SetActive(false);
-            GameManager.currentPassenger.Leave();
-            Background.OnResumeDriving?.Invoke();
+            Bus.currentPassenger.Leave();
         } else if (!isCorrectResponse && (bool)playerDecision) {
-            // if invalid payment accept
-            // Passenger moves to back of bus
-            FareBox.OnRemoveFare?.Invoke();
-            fareBox.SetActive(false);
-            GameManager.currentPassenger.Stay();
-            Background.OnResumeDriving?.Invoke();
+            Bus.currentPassenger.Stay();
         } else {
-            // if invalid payment reject
-            // Passenger gets off bus  
-            FareBox.OnRemoveFare?.Invoke();
-            fareBox.SetActive(false);
-            GameManager.currentPassenger.Leave();
-            Background.OnResumeDriving?.Invoke();
+            Bus.currentPassenger.Leave();
         }
+
+        Bus.OnCloseFareBox?.Invoke();
+        Bus.OnDrive?.Invoke();
     }
 
     protected override void OnTimeout() {
@@ -131,7 +108,6 @@ public class FareEvent : BusEvent {
     }
 
     void SetupEvent() {
-        fareBox.SetActive(true);
-        BoardingQueue.SpawnPassengers?.Invoke();
+        Bus.OnBoard?.Invoke();
     }
 }

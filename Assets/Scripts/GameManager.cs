@@ -11,8 +11,6 @@ public class GameManager : MonoBehaviour {
     public delegate void StartDay();
     public static StartDay OnStartDay;
 
-    public static Passenger currentPassenger;
-
     public BoardingQueue boardingQueue;
     public TimeOfDay timeOfDay;
     public EventQueue eventQueue;
@@ -23,13 +21,7 @@ public class GameManager : MonoBehaviour {
     public const float ADULT_FARE = 2f;
     public const float SENIOR_FARE = 3f;
 
-    public enum Lane {
-        Left,
-        Right
-    }
-
     public static bool isPlayerHoldingCoins;
-    public static Lane currentLane = Lane.Right;
 
     bool dayOver;
 
@@ -45,14 +37,6 @@ public class GameManager : MonoBehaviour {
         OnCompleteDay -= CompleteTheDay;
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            DisplayManager.OnLookBack?.Invoke();
-        } else if (Input.GetKeyUp(KeyCode.Space)) {
-            DisplayManager.OnLookForward?.Invoke();
-        }
-    }
-
     private void Start() {
         StartTheDay();
     }
@@ -61,7 +45,6 @@ public class GameManager : MonoBehaviour {
         boardingQueue.Clear();
         timeOfDay.Init();
         eventQueue.QueueForDay();
-        DisplayManager.OnLookForward?.Invoke();
     }
 
     void GameOver(int fails) {
