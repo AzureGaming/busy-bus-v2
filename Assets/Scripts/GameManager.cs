@@ -45,6 +45,14 @@ public class GameManager : MonoBehaviour {
         OnCompleteDay -= CompleteTheDay;
     }
 
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            DisplayManager.OnLookBack?.Invoke();
+        } else if (Input.GetKeyUp(KeyCode.Space)) {
+            DisplayManager.OnLookForward?.Invoke();
+        }
+    }
+
     private void Start() {
         StartTheDay();
     }
@@ -53,6 +61,7 @@ public class GameManager : MonoBehaviour {
         boardingQueue.Clear();
         timeOfDay.Init();
         eventQueue.QueueForDay();
+        DisplayManager.OnLookForward?.Invoke();
     }
 
     void GameOver(int fails) {

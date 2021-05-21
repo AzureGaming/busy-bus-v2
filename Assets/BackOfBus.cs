@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BackOfBus : MonoBehaviour {
-    public delegate void MoveToBack(GameObject passenger);
-    public static MoveToBack OnMoveToBack;
+    public delegate void Board(GameObject passenger);
+    public static Board OnBoard;
+
+    public GameObject testPassenger;
+    public Transform seat;
 
     List<GameObject> passengers;
 
@@ -12,16 +17,32 @@ public class BackOfBus : MonoBehaviour {
         passengers = new List<GameObject>();
     }
 
-    private void OnEnable() {
-        OnMoveToBack += AddPassenger;
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            AddPassenger();
+        }
     }
 
-    private void OnDisable() {
-        OnMoveToBack -= AddPassenger;
-    }
+    //private void OnEnable() {
+    //    OnBoard += AddPassenger;
+    //}
 
-    void AddPassenger(GameObject passenger) {
-        passengers.Add(passenger);
-        passenger.transform.SetParent(transform, false); // placeholder
+    //private void OnDisable() {
+    //    OnBoard -= AddPassenger;
+    //}
+
+    void AddPassenger() {
+        GameObject test = Instantiate(testPassenger, seat);
+        test.GetComponent<Image>().sprite = test.GetComponent<Passenger>().sittingSprite;
+        passengers.Add(test);
+
+        Seat[] validSeats = GetComponentsInChildren<Seat>().Where((Seat seat) => !seat.isOccupied).ToArray();
+
+        if (validSeats.Length > 0) {
+            int randomSeat = Random.Range(0, validSeats.Length);
+            validSeats[randomSeat].SpawnPassenger(test);
+        } else {
+            Debug.LogWarning("Cannot add new passenger, seats full.");
+        }
     }
 }

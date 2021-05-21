@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardingSprite: {fileID: 0}
-  sittingSprite: {fileID: 0}
+  sittingSprite: {fileID: -9160790334138124321, guid: 99f2801e9d80852419a9adb89d0f9883, type: 3}
   rowdySprite: {fileID: 0}
   highlighted: {fileID: -3705020726943333425, guid: 26598e8275dc78e4d93517cf1b91dc83, type: 3}
   type: 1

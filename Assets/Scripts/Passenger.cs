@@ -52,7 +52,8 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
 
     public void Stay() {
-        BackOfBus.OnMoveToBack?.Invoke(gameObject);
+        image.sprite = sittingSprite;
+        BackOfBus.OnBoard?.Invoke(gameObject);
     }
 
     void PayFare() {
