@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 3368500891826665283}
   - component: {fileID: 3368500891826665285}
   - component: {fileID: 3368500891826665280}
+  - component: {fileID: 7680381035765736848}
   m_Layer: 0
   m_Name: Singletons
   m_TagString: Untagged
@@ -112,6 +113,7 @@ MonoBehaviour:
   eventQueue: {fileID: 3368500891826665283}
   adultPassenger: {fileID: 2961317425526824866, guid: 33df4850ec96f1c44b25acc3b1531451, type: 3}
   boardingArea: {fileID: 0}
+  backOfBus: {fileID: 0}
 --- !u!114 &3368500891826665283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +158,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2333be2e93bccd45b97c93111d2a12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7680381035765736848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3368500891826665282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c21e77521adc147b40b5ceca439b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3368500892181509574

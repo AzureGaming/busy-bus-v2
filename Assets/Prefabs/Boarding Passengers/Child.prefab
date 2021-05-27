@@ -68,7 +68,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: -4185391198249594573, guid: 9a7c7cb97a529bf46865bd2c02a05e6d, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -89,7 +89,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardingSprite: {fileID: 0}
-  sittingSprite: {fileID: 0}
+  sittingSprite: {fileID: -4336819177932918170, guid: 99f2801e9d80852419a9adb89d0f9883, type: 3}
   rowdySprite: {fileID: 0}
+  highlighted: {fileID: 0}
   type: 0
   paidFare: 0

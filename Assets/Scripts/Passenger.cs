@@ -44,15 +44,16 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
 
     public void Leave() {
-        Destroy(gameObject);
+        Bus.OnDisembark?.Invoke();
     }
 
     public void Kick() {
-        // Exit back of bus
+        Bus.OnKick?.Invoke();
     }
 
     public void Stay() {
-        BackOfBus.OnMoveToBack?.Invoke(gameObject);
+        image.sprite = sittingSprite;
+        Bus.OnSit?.Invoke();
     }
 
     void PayFare() {

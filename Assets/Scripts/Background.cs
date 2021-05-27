@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Background : MonoBehaviour {
-    public delegate void LeftLaneChange(bool skipAnimation, bool isRushed);
+    public delegate void LeftLaneChange(bool isRushed);
     public static LeftLaneChange OnLeftLaneChange;
-    public delegate void RightLaneChange(bool skipAnimation, bool isRushed);
+    public delegate void RightLaneChange(bool isRushed);
     public static RightLaneChange OnRightLaneChange;
     public delegate void InitLeftLane();
     public static InitLeftLane OnInitLeftLane;
@@ -63,48 +63,34 @@ public class Background : MonoBehaviour {
         OnResumeDriving -= Resume;
     }
 
-    private void Start() {
-        if (GameManager.currentLane == GameManager.Lane.Left) {
-            InitLeft();
-        } else {
-            InitRight();
-        }
-    }
-
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            QueueBusStop();
-        }
-    }
-
     void QueueBusStop() {
         busStopQueued = true;
         //ReduceAnimationSpeed();
     }
 
-    public void InitLeft() {
+    void InitLeft() {
         image.transform.position = leftLanePosition.transform.position;
     }
 
-    public void InitRight() {
+    void InitRight() {
         image.transform.position = rightLanePosition.transform.position;
     }
 
-    void GoToLeftLane(bool skipAnimation, bool isRushed) {
+    void GoToLeftLane(bool isRushed) {
         StopAllCoroutines();
         if (isRushed) {
             StartCoroutine(GoToPositionRush(leftLanePosition.transform.position));
         } else {
-            StartCoroutine(GoToPositionSmooth(leftLanePosition.transform.position, skipAnimation));
+            StartCoroutine(GoToPositionSmooth(leftLanePosition.transform.position));
         }
     }
 
-    void GoToRightLane(bool skipAnimation, bool isRushed) {
+    void GoToRightLane(bool isRushed) {
         StopAllCoroutines();
         if (isRushed) {
             StartCoroutine(GoToPositionRush(rightLanePosition.transform.position));
         } else {
-            StartCoroutine(GoToPositionSmooth(rightLanePosition.transform.position, skipAnimation));
+            StartCoroutine(GoToPositionSmooth(rightLanePosition.transform.position));
         }
     }
 
@@ -117,7 +103,7 @@ public class Background : MonoBehaviour {
     }
 
     void TriggerBusStop() {
-        if (GameManager.currentLane == GameManager.Lane.Left) {
+        if (Bus.currentLane == Bus.Lane.Left) {
             busStopLeftBackground.GetComponent<BusStopBackground>().shouldTriggerEvent = true;
         } else {
             busStopRightBackground.GetComponent<BusStopBackground>().shouldTriggerEvent = true;
@@ -141,7 +127,7 @@ public class Background : MonoBehaviour {
 
     void DisplayBusStop() {
         regularBackground.GetComponent<Image>().color = Color.clear;
-        if (GameManager.currentLane == GameManager.Lane.Left) {
+        if (Bus.currentLane == Bus.Lane.Left) {
             busStopLeftBackground.GetComponent<Image>().color = busStopBackgroundColor;
             busStopRightBackground.GetComponent<Image>().color = Color.clear;
         } else {
@@ -155,20 +141,18 @@ public class Background : MonoBehaviour {
         regularAnimator.SetFloat("Multiplier", 0.5f);
     }
 
-    IEnumerator GoToPositionSmooth(Vector3 newPos, bool skipAnimation) {
+    IEnumerator GoToPositionSmooth(Vector3 newPos) {
         float timeElapsed = 0f;
         float totalTime = 1f;
         Vector3 pos = image.transform.position;
 
-        if (!skipAnimation) {
-            while (timeElapsed <= totalTime) {
-                Vector3 nextPos = image.transform.position;
-                float nextPosX = Mathf.Lerp(pos.x, newPos.x, ( timeElapsed / totalTime ));
-                nextPos.x = nextPosX;
-                image.transform.position = nextPos;
-                timeElapsed += Time.deltaTime;
-                yield return null;
-            }
+        while (timeElapsed <= totalTime) {
+            Vector3 nextPos = image.transform.position;
+            float nextPosX = Mathf.Lerp(pos.x, newPos.x, ( timeElapsed / totalTime ));
+            nextPos.x = nextPosX;
+            image.transform.position = nextPos;
+            timeElapsed += Time.deltaTime;
+            yield return null;
         }
         image.transform.position = newPos;
     }
