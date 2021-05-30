@@ -1,7 +1,43 @@
 fileFormatVersion: 2
 guid: cfe1d3950c7801b478e69226e9db4d64
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -9160790334138124321
+    second: Civi Sitting Sprites-Sheet_0
+  - first:
+      213: 3109671349287964608
+    second: Civi Sitting Sprites-Sheet_1
+  - first:
+      213: 4071460410677881779
+    second: Civi Sitting Sprites-Sheet_2
+  - first:
+      213: 739777008310649746
+    second: Civi Sitting Sprites-Sheet_3
+  - first:
+      213: -4336819177932918170
+    second: Civi Sitting Sprites-Sheet_4
+  - first:
+      213: 8027122355697502531
+    second: Civi Sitting Sprites-Sheet_5
+  - first:
+      213: -8089040251012933530
+    second: Civi Sitting Sprites-Sheet_6
+  - first:
+      213: -4662697143736546468
+    second: Civi Sitting Sprites-Sheet_7
+  - first:
+      213: -6671995859307684162
+    second: Civi Sitting Sprites-Sheet_8
+  - first:
+      213: 9081560639483801204
+    second: Civi Sitting Sprites-Sheet_9
+  - first:
+      213: -1287855818029120929
+    second: Civi Sitting Sprites-Sheet_10
+  - first:
+      213: 6712527058676070905
+    second: Civi Sitting Sprites-Sheet_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -32,7 +68,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -41,7 +77,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -68,7 +104,19 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -77,7 +125,259 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Civi Sitting Sprites-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 178
+        width: 35
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd77ddf1ab55ed080800000000000000
+      internalID: -9160790334138124321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Civi Sitting Sprites-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 178
+        width: 35
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cfc48ecd95c72b20800000000000000
+      internalID: 3109671349287964608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Civi Sitting Sprites-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 178
+        width: 35
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bb65870cabb08830800000000000000
+      internalID: 4071460410677881779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Civi Sitting Sprites-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 178
+        width: 35
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2938b510547344a00800000000000000
+      internalID: 739777008310649746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Civi Sitting Sprites-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 89
+        width: 35
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 662f4346fe580d3c0800000000000000
+      internalID: -4336819177932918170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Civi Sitting Sprites-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 89
+        width: 35
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34942f3c041166f60800000000000000
+      internalID: 8027122355697502531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Civi Sitting Sprites-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 89
+        width: 35
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6689980dfb4fdbf80800000000000000
+      internalID: -8089040251012933530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Civi Sitting Sprites-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 89
+        width: 35
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5bca5cd6a5ca4fb0800000000000000
+      internalID: -4662697143736546468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Civi Sitting Sprites-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 35
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebe961f9d1f4863a0800000000000000
+      internalID: -6671995859307684162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Civi Sitting Sprites-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 0
+        width: 35
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47ee992194f280e70800000000000000
+      internalID: 9081560639483801204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Civi Sitting Sprites-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 0
+        width: 35
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f524474f4fd902ee0800000000000000
+      internalID: -1287855818029120929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Civi Sitting Sprites-Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 0
+        width: 35
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f9b59d9bcfa72d50800000000000000
+      internalID: 6712527058676070905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

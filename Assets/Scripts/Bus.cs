@@ -29,6 +29,7 @@ public class Bus : MonoBehaviour {
 
     public GameObject fareBox;
     public GameObject backOfBus;
+    public static bool isLookingBack;
 
     List<Passenger> passengers;
 
@@ -39,8 +40,10 @@ public class Bus : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Space)) {
             DisplayManager.OnLookBack?.Invoke();
+            isLookingBack = true;
         } else if (Input.GetKeyUp(KeyCode.Space)) {
             DisplayManager.OnLookForward?.Invoke();
+            isLookingBack = false;
         }
     }
 

@@ -7,6 +7,8 @@ public class DisplayManager : MonoBehaviour {
     public static LookForward OnLookForward;
     public delegate void LookBack();
     public static LookBack OnLookBack;
+    public delegate void PassengerClick();
+    public static PassengerClick OnPassengerClick;
 
     public GameObject city;
     public GameObject bus;
@@ -16,11 +18,13 @@ public class DisplayManager : MonoBehaviour {
     private void OnEnable() {
         OnLookForward += DisplayFrontOfBus;
         OnLookBack += DisplayBackOfBus;
+        OnPassengerClick += DisplayPassengerMenu;
     }
 
     private void OnDisable() {
         OnLookForward -= DisplayFrontOfBus;
         OnLookBack -= DisplayBackOfBus;
+        OnPassengerClick -= DisplayPassengerMenu;
     }
 
     void DisplayFrontOfBus() {
@@ -33,5 +37,9 @@ public class DisplayManager : MonoBehaviour {
         city.SetActive(true);
         bus.SetActive(false);
         backOfBus.SetActive(true);
+    }
+
+    void DisplayPassengerMenu() {
+        Debug.LogWarning("TODO: IMPLEMENT PASSENGER MENU");
     }
 }
