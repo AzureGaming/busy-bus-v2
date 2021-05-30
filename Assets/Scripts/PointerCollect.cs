@@ -7,7 +7,7 @@ public class PointerCollect : MonoBehaviour {
 
     bool isValidRightClick {
         get {
-            Vector2 mousePos = ConvertMousePosToWorldPoint();
+            Vector2 mousePos = Utilities.ConvertMousePosToWorldPoint();
             float mouseX = mousePos.x;
             float mouseY = mousePos.y;
             // Rect transform anchor must be centered for this to work.
@@ -34,11 +34,5 @@ public class PointerCollect : MonoBehaviour {
             GameManager.isPlayerHoldingCoins = false;
             Draggable.OnRightClickUp?.Invoke();
         }
-    }
-
-    Vector2 ConvertMousePosToWorldPoint() {
-        Vector3 screenPoint = Input.mousePosition;
-        screenPoint.z = 10f;
-        return Camera.main.ScreenToWorldPoint(screenPoint);
     }
 }

@@ -71,7 +71,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 
     IEnumerator FollowMouse() {
         for (; ; ) {
-            Vector2 mousePos = ConvertMousePosToWorldPoint();
+            Vector2 mousePos = Utilities.ConvertMousePosToWorldPoint();
             Vector2 newVelocity = ( mousePos - (Vector2)transform.position ) * SPEED;
             rb.velocity = newVelocity;
             Debug.Log(newVelocity);
@@ -93,13 +93,5 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
         }
 
         transform.position = endPos;
-    }
-
-    // Necessary when canvas render mode is Screen Space - Camera
-    // Ref: https://forum.unity.com/threads/mouse-position-for-screen-space-camera.294458/
-    Vector2 ConvertMousePosToWorldPoint() {
-        Vector3 screenPoint = Input.mousePosition;
-        screenPoint.z = 10f;
-        return Camera.main.ScreenToWorldPoint(screenPoint);
     }
 }
