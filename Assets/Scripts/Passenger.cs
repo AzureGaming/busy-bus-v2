@@ -14,8 +14,7 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     enum State {
         BOARDING,
         BOARDED,
-        MISDEMEANOR,
-        HOVERED
+        MISDEMEANOR
     }
 
     public Sprite boarding;
@@ -56,6 +55,25 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         if (misdemeanorRoutine == null) {
             misdemeanorRoutine = StartCoroutine(MisdemeanorRoutine());
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData) {
+        isPointerEnter = true;
+        Highlight();
+    }
+
+    public void OnPointerExit(PointerEventData eventData) {
+        isPointerEnter = false;
+
+        if (Bus.isLookingBack) {
+            if (currentState == State.MISDEMEANOR) {
+                image.sprite = smoking;
+            } else {
+                image.sprite = sitting;
+            }
+        } else {
+            image.sprite = boarding;
         }
     }
 
@@ -120,29 +138,21 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         FareBox.OnPresentFare?.Invoke(paidFare);
     }
 
+    void Highlight() {
+        if (GameManager.isPlayerHoldingCoins) {
+            image.sprite = boardingHighlighted;
+        } else if (Bus.isLookingBack) {
+            if (currentState == State.MISDEMEANOR) {
+                image.sprite = smokingHighlighted;
+            } else {
+                image.sprite = sittingHighlighted;
+            }
+        }
+    }
+
     void SkewFarePayment() {
         // TODO: enhance
         paidFare += 1f;
-    }
-
-    public void OnPointerEnter(PointerEventData eventData) {
-        UpdateState(State.HOVERED);
-        //isPointerEnter = true;
-        //if (GameManager.isPlayerHoldingCoins) {
-        //    image.sprite = boardingHighlighted;
-        //} else if (Bus.isLookingBack) {
-        //    image.sprite = sittingHighlighted;
-        //}
-    }
-
-    public void OnPointerExit(PointerEventData eventData) {
-        isPointerEnter = false;
-
-        if (Bus.isLookingBack) {
-            image.sprite = sitting;
-        } else {
-            image.sprite = boarding;
-        }
     }
 
     void UpdateState(State state) {
@@ -160,17 +170,9 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 break;
             }
             case State.MISDEMEANOR: {
-                //SmokeCigarette();
-                break;
-            }
-            case State.HOVERED: {
-                Highlight();
+                SmokeCigarette();
                 break;
             }
         }
-    }
-
-    void Highlight() {
-
     }
 }
