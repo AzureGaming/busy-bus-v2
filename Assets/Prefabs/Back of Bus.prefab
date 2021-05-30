@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 352812874}
   - component: {fileID: 352812876}
   - component: {fileID: 352812875}
+  - component: {fileID: 1607618576}
   m_Layer: 0
   m_Name: Back Door
   m_TagString: Untagged
@@ -109,8 +110,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -103.209175, y: 41.3521}
-  m_SizeDelta: {x: 106.8351, y: 232.5234}
+  m_AnchoredPosition: {x: -116.144, y: 44.905}
+  m_SizeDelta: {x: 131.414, y: 225.282}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &352812876
 CanvasRenderer:
@@ -150,6 +151,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &1607618576
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352812873}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a991c3fc37cdc294e988d253aaf4eb53, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &401053573
 GameObject:
   m_ObjectHideFlags: 0

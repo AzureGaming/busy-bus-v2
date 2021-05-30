@@ -332,10 +332,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Back of Bus
       objectReference: {fileID: 0}
-    - target: {fileID: 5924882110684693734, guid: 5d968b4e1a325474c8d0c10fb1751062, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d968b4e1a325474c8d0c10fb1751062, type: 3}
 --- !u!4 &1297205938 stripped
@@ -451,30 +447,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8143592888002418209, guid: 6aa737bfa1e48d246ac1c5f9b6c858cd, type: 3}
   m_PrefabInstance: {fileID: 8143592887285645177}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1607618572 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 352812873, guid: 5d968b4e1a325474c8d0c10fb1751062, type: 3}
-  m_PrefabInstance: {fileID: 1297205937}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1607618576
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1607618572}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a991c3fc37cdc294e988d253aaf4eb53, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1790192340
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,6 +754,10 @@ PrefabInstance:
     - target: {fileID: 8143592888002418222, guid: 6aa737bfa1e48d246ac1c5f9b6c858cd, type: 3}
       propertyPath: m_Name
       value: Bus
+      objectReference: {fileID: 0}
+    - target: {fileID: 8143592888002418222, guid: 6aa737bfa1e48d246ac1c5f9b6c858cd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8143592888240433093, guid: 6aa737bfa1e48d246ac1c5f9b6c858cd, type: 3}
       propertyPath: m_Sprite
