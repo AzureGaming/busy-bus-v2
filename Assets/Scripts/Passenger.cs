@@ -14,7 +14,8 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     enum State {
         BOARDING,
         BOARDED,
-        MISDEMEANOR
+        MISDEMEANOR,
+        HOVERED
     }
 
     public Sprite boarding;
@@ -125,12 +126,13 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        isPointerEnter = true;
-        if (GameManager.isPlayerHoldingCoins) {
-            image.sprite = boardingHighlighted;
-        } else if (Bus.isLookingBack) {
-            image.sprite = sittingHighlighted;
-        }
+        UpdateState(State.HOVERED);
+        //isPointerEnter = true;
+        //if (GameManager.isPlayerHoldingCoins) {
+        //    image.sprite = boardingHighlighted;
+        //} else if (Bus.isLookingBack) {
+        //    image.sprite = sittingHighlighted;
+        //}
     }
 
     public void OnPointerExit(PointerEventData eventData) {
@@ -158,9 +160,17 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 break;
             }
             case State.MISDEMEANOR: {
-                SmokeCigarette();
+                //SmokeCigarette();
+                break;
+            }
+            case State.HOVERED: {
+                Highlight();
                 break;
             }
         }
+    }
+
+    void Highlight() {
+
     }
 }

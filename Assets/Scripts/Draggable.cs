@@ -74,7 +74,6 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
             Vector2 mousePos = Utilities.ConvertMousePosToWorldPoint();
             Vector2 newVelocity = ( mousePos - (Vector2)transform.position ) * SPEED;
             rb.velocity = newVelocity;
-            Debug.Log(newVelocity);
             yield return null;
         }
     }
