@@ -198,25 +198,9 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 Destroy(child.gameObject);
             }
         }
-        yield return StartCoroutine(FadeOut());
+        yield return StartCoroutine(Utilities.FadeOut(gameObject));
         UpdateState(State.EXITING);
         Bus.OnKick?.Invoke(gameObject);
         yield break;
     }
-
-    IEnumerator FadeOut() {
-        float timeElapsed = 0f;
-        float totalTime = 1f;
-        Color color = image.color;
-
-        while (timeElapsed <= totalTime) {
-            timeElapsed += Time.deltaTime;
-            float newAlpha = Mathf.Lerp(color.a, 0, ( timeElapsed / totalTime ));
-            Color newColor = image.color;
-            newColor.a = newAlpha;
-            image.color = newColor;
-            yield return null;
-        }
-    }
-
 }
