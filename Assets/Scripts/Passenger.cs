@@ -14,7 +14,8 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     enum State {
         BOARDING,
         BOARDED,
-        MISDEMEANOR
+        MISDEMEANOR,
+        EXITING
     }
 
     public Sprite boarding;
@@ -32,6 +33,7 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     Sprite startingSprite;
     State currentState;
     bool isPointerEnter;
+    bool isHighlightValid;
     Coroutine misdemeanorRoutine;
 
     private void Awake() {
@@ -50,7 +52,8 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         }
 
         if (Input.GetMouseButtonDown(0) && isPointerEnter && Bus.isLookingBack) {
-            DisplayManager.OnPassengerClick?.Invoke();
+            //DisplayManager.OnPassengerClick?.Invoke();
+            Kick();
         }
 
         if (misdemeanorRoutine == null) {
@@ -60,12 +63,17 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData) {
         isPointerEnter = true;
+        if (!isHighlightValid) {
+            return;
+        }
         Highlight();
     }
 
     public void OnPointerExit(PointerEventData eventData) {
         isPointerEnter = false;
-
+        if (!isHighlightValid) {
+            return;
+        }
         if (Bus.isLookingBack) {
             if (currentState == State.MISDEMEANOR) {
                 image.sprite = smoking;
@@ -86,7 +94,7 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
 
     public void Kick() {
-        Bus.OnKick?.Invoke();
+        StartCoroutine(KickRoutine());
     }
 
     public void Stay() {
@@ -157,9 +165,12 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     void UpdateState(State state) {
         currentState = state;
-        smokeParticles.SetActive(false);
+        if (smokeParticles != null) {
+            smokeParticles.SetActive(false);
+        }
         switch (state) {
             case State.BOARDING: {
+                isHighlightValid = true;
                 image.sprite = boarding;
                 PayFare();
                 break;
@@ -173,6 +184,39 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 SmokeCigarette();
                 break;
             }
+            case State.EXITING: {
+                image.sprite = boarding;
+                break;
+            }
         }
     }
+
+    IEnumerator KickRoutine() {
+        isHighlightValid = false;
+        foreach (Transform child in transform) {
+            if (child.tag == "Smoke") {
+                Destroy(child.gameObject);
+            }
+        }
+        yield return StartCoroutine(FadeOut());
+        UpdateState(State.EXITING);
+        Bus.OnKick?.Invoke(gameObject);
+        yield break;
+    }
+
+    IEnumerator FadeOut() {
+        float timeElapsed = 0f;
+        float totalTime = 1f;
+        Color color = image.color;
+
+        while (timeElapsed <= totalTime) {
+            timeElapsed += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(color.a, 0, ( timeElapsed / totalTime ));
+            Color newColor = image.color;
+            newColor.a = newAlpha;
+            image.color = newColor;
+            yield return null;
+        }
+    }
+
 }

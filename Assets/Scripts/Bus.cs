@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Bus : MonoBehaviour {
     public enum Lane {
@@ -17,7 +18,7 @@ public class Bus : MonoBehaviour {
     public static Board OnBoard;
     public delegate void Sit();
     public static Sit OnSit;
-    public delegate void Kick();
+    public delegate void Kick(GameObject passenger);
     public static Kick OnKick;
     public delegate void Disembark();
     public static Disembark OnDisembark;
@@ -29,9 +30,23 @@ public class Bus : MonoBehaviour {
 
     public GameObject fareBox;
     public GameObject backOfBus;
+    public GameObject kickedContainer;
     public static bool isLookingBack;
 
     List<Passenger> passengers;
+
+    private void Awake() {
+        passengers = new List<Passenger>();
+    }
+
+    private void Start() {
+        DisplayManager.OnLookForward?.Invoke();
+        if (currentLane == Lane.Left) {
+            Background.OnInitLeftLane?.Invoke();
+        } else {
+            Background.OnInitRightLane?.Invoke();
+        }
+    }
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Alpha1)) { //testing
@@ -44,19 +59,6 @@ public class Bus : MonoBehaviour {
         } else if (Input.GetKeyUp(KeyCode.Space)) {
             DisplayManager.OnLookForward?.Invoke();
             isLookingBack = false;
-        }
-    }
-
-    private void Awake() {
-        passengers = new List<Passenger>();
-    }
-
-    private void Start() {
-        DisplayManager.OnLookForward?.Invoke();
-        if (currentLane == Lane.Left) {
-            Background.OnInitLeftLane?.Invoke();
-        } else {
-            Background.OnInitRightLane?.Invoke();
         }
     }
 
@@ -105,8 +107,9 @@ public class Bus : MonoBehaviour {
         Debug.LogWarning("TODO: IMPLEMENT");
     }
 
-    void KickPassenger() {
+    void KickPassenger(GameObject passenger) {
         Debug.LogWarning("TODO: IMPLEMENT");
+        StartCoroutine(KickRoutine(passenger));
     }
 
     void DisableFareBox() {
@@ -132,6 +135,48 @@ public class Bus : MonoBehaviour {
             ChangeLaneLeft(isRushed);
         } else {
             ChangeLaneRight(isRushed);
+        }
+    }
+
+    IEnumerator KickRoutine(GameObject passenger) {
+        passenger.transform.SetParent(kickedContainer.transform, false);
+        yield return StartCoroutine(FadeIn(passenger));
+        yield return new WaitForSeconds(0.5f);
+        BackDoor.OnOpen?.Invoke();
+        yield return new WaitForSeconds(0.5f);
+        yield return StartCoroutine(FadeOut(passenger));
+        yield return new WaitForSeconds(0.5f);
+        BackDoor.OnClose?.Invoke();
+    }
+
+    IEnumerator FadeOut(GameObject passenger) {
+        float timeElapsed = 0f;
+        float totalTime = 1f;
+        Color color = passenger.GetComponent<Image>().color;
+
+        while (timeElapsed <= totalTime) {
+            timeElapsed += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(color.a, 0, ( timeElapsed / totalTime ));
+            Color newColor = passenger.GetComponent<Image>().color;
+            newColor.a = newAlpha;
+            passenger.GetComponent<Image>().color = newColor;
+            yield return null;
+        }
+    }
+
+
+    IEnumerator FadeIn(GameObject passenger) {
+        float timeElapsed = 0f;
+        float totalTime = 1f;
+        Color color = passenger.GetComponent<Image>().color;
+
+        while (timeElapsed <= totalTime) {
+            timeElapsed += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(color.a, 1, ( timeElapsed / totalTime ));
+            Color newColor = passenger.GetComponent<Image>().color;
+            newColor.a = newAlpha;
+            passenger.GetComponent<Image>().color = newColor;
+            yield return null;
         }
     }
 }
