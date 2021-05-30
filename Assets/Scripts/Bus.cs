@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Bus : MonoBehaviour {
@@ -125,6 +126,9 @@ public class Bus : MonoBehaviour {
         if (validSeats.Length > 0) {
             int randomSeat = Random.Range(0, validSeats.Length);
             validSeats[randomSeat].SetParent(currentPassenger.gameObject);
+
+            // Fix bug where passenger is rendered sitting in boarding screen
+            Utilities.HideUI(currentPassenger.gameObject);
         } else {
             Debug.LogWarning("Cannot add new passenger, seats full.");
         }

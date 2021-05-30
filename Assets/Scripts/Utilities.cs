@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Utilities : MonoBehaviour {
@@ -39,6 +40,21 @@ public class Utilities : MonoBehaviour {
             newColor.a = newAlpha;
             obj.GetComponent<Image>().color = newColor;
             yield return null;
+        }
+    }
+
+    // Ref: https://answers.unity.com/questions/840927/how-do-i-disable-a-renderer-on-a-ui-object-in-46.html 
+    public static void HideUI(GameObject obj) {
+        UIBehaviour[] renderers = obj.GetComponentsInChildren<UIBehaviour>();
+        foreach (UIBehaviour renderer in renderers) {
+            renderer.enabled = false;
+        }
+    }
+
+    public static void ShowUI(GameObject obj) {
+        UIBehaviour[] renderers = obj.GetComponentsInChildren<UIBehaviour>();
+        foreach (UIBehaviour renderer in renderers) {
+            renderer.enabled = true;
         }
     }
 }

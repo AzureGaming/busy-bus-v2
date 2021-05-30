@@ -29,34 +29,18 @@ public class DisplayManager : MonoBehaviour {
     }
 
     void DisplayFrontOfBus() {
-        Show(city);
-        Show(bus);
-        Hide(backOfBus);
+        Utilities.ShowUI(city);
+        Utilities.ShowUI(bus);
+        Utilities.HideUI(backOfBus);
     }
 
     void DisplayBackOfBus() {
-        Show(city);
-        Hide(bus);
-        Show(backOfBus);
+        Utilities.ShowUI(city);
+        Utilities.HideUI(bus);
+        Utilities.ShowUI(backOfBus);
     }
 
     void DisplayPassengerMenu() {
         Debug.LogWarning("TODO: IMPLEMENT PASSENGER MENU");
-    }
-
-    // Ref: https://answers.unity.com/questions/840927/how-do-i-disable-a-renderer-on-a-ui-object-in-46.html 
-    void Show(GameObject obj) {
-        UIBehaviour[] renderers = obj.GetComponentsInChildren<UIBehaviour>();
-        foreach (UIBehaviour renderer in renderers) {
-            renderer.enabled = true;
-        }
-    }
-
-    // Ref: https://answers.unity.com/questions/840927/how-do-i-disable-a-renderer-on-a-ui-object-in-46.html 
-    void Hide(GameObject obj) {
-        UIBehaviour[] renderers = obj.GetComponentsInChildren<UIBehaviour>();
-        foreach (UIBehaviour renderer in renderers) {
-            renderer.enabled = false;
-        }
     }
 }
