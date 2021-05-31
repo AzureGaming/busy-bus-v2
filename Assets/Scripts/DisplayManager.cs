@@ -15,6 +15,7 @@ public class DisplayManager : MonoBehaviour {
     public GameObject bus;
     public GameObject backOfBus;
     public GameObject fareBox;
+    public ParticleSystem particleSystem;
 
     private void OnEnable() {
         OnLookForward += DisplayFrontOfBus;
@@ -29,12 +30,24 @@ public class DisplayManager : MonoBehaviour {
     }
 
     void DisplayFrontOfBus() {
+        // Hack to prevent render of smoke
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Smoke");
+        foreach (GameObject smoke in objs) {
+            smoke.SetActive(false);
+        }
+
         Utilities.ShowUI(city);
         Utilities.ShowUI(bus);
         Utilities.HideUI(backOfBus);
     }
 
     void DisplayBackOfBus() {
+        // Hack to enable render of smoke
+        ParticleSystem[] objs = (ParticleSystem[])Resources.FindObjectsOfTypeAll(typeof(ParticleSystem));
+        foreach (ParticleSystem smoke in objs) {
+            smoke.gameObject.SetActive(true);
+        }
+
         Utilities.ShowUI(city);
         Utilities.HideUI(bus);
         Utilities.ShowUI(backOfBus);
