@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Bus : MonoBehaviour {
     public enum Lane {
@@ -17,7 +19,7 @@ public class Bus : MonoBehaviour {
     public static Board OnBoard;
     public delegate void Sit();
     public static Sit OnSit;
-    public delegate void Kick();
+    public delegate void Kick(GameObject passenger);
     public static Kick OnKick;
     public delegate void Disembark();
     public static Disembark OnDisembark;
@@ -29,20 +31,10 @@ public class Bus : MonoBehaviour {
 
     public GameObject fareBox;
     public GameObject backOfBus;
+    public GameObject kickedContainer;
+    public static bool isLookingBack;
 
     List<Passenger> passengers;
-
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) { //testing
-            TriggerPassengerPickup();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            DisplayManager.OnLookBack?.Invoke();
-        } else if (Input.GetKeyUp(KeyCode.Space)) {
-            DisplayManager.OnLookForward?.Invoke();
-        }
-    }
 
     private void Awake() {
         passengers = new List<Passenger>();
@@ -54,6 +46,20 @@ public class Bus : MonoBehaviour {
             Background.OnInitLeftLane?.Invoke();
         } else {
             Background.OnInitRightLane?.Invoke();
+        }
+    }
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) { //testing
+            TriggerPassengerPickup();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            DisplayManager.OnLookBack?.Invoke();
+            isLookingBack = true;
+        } else if (Input.GetKeyUp(KeyCode.Space)) {
+            DisplayManager.OnLookForward?.Invoke();
+            isLookingBack = false;
         }
     }
 
@@ -102,8 +108,9 @@ public class Bus : MonoBehaviour {
         Debug.LogWarning("TODO: IMPLEMENT");
     }
 
-    void KickPassenger() {
+    void KickPassenger(GameObject passenger) {
         Debug.LogWarning("TODO: IMPLEMENT");
+        StartCoroutine(KickRoutine(passenger));
     }
 
     void DisableFareBox() {
@@ -119,6 +126,9 @@ public class Bus : MonoBehaviour {
         if (validSeats.Length > 0) {
             int randomSeat = Random.Range(0, validSeats.Length);
             validSeats[randomSeat].SetParent(currentPassenger.gameObject);
+
+            // Fix bug where passenger is rendered sitting in boarding screen
+            Utilities.HideUI(currentPassenger.gameObject);
         } else {
             Debug.LogWarning("Cannot add new passenger, seats full.");
         }
@@ -130,5 +140,16 @@ public class Bus : MonoBehaviour {
         } else {
             ChangeLaneRight(isRushed);
         }
+    }
+
+    IEnumerator KickRoutine(GameObject passenger) {
+        passenger.transform.SetParent(kickedContainer.transform, false);
+        yield return StartCoroutine(Utilities.FadeIn(passenger));
+        yield return new WaitForSeconds(0.5f);
+        BackDoor.OnOpen?.Invoke();
+        yield return new WaitForSeconds(0.5f);
+        yield return StartCoroutine(Utilities.FadeOut(passenger));
+        yield return new WaitForSeconds(0.5f);
+        BackDoor.OnClose?.Invoke();
     }
 }

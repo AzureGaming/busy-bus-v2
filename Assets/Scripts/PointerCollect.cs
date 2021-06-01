@@ -7,8 +7,9 @@ public class PointerCollect : MonoBehaviour {
 
     bool isValidRightClick {
         get {
-            float mouseX = Input.mousePosition.x;
-            float mouseY = Input.mousePosition.y;
+            Vector2 mousePos = Utilities.ConvertMousePosToWorldPoint();
+            float mouseX = mousePos.x;
+            float mouseY = mousePos.y;
             // Rect transform anchor must be centered for this to work.
             float minBoundX = boundingArea.offsetMin.x;
             float minBoundY = boundingArea.offsetMin.y;

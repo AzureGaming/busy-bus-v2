@@ -11,36 +11,82 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         Senior
     }
 
-    public Sprite boardingSprite;
-    public Sprite sittingSprite;
-    public Sprite rowdySprite;
-    public Sprite highlighted;
+    enum State {
+        BOARDING,
+        BOARDED,
+        MISDEMEANOR,
+        EXITING
+    }
+
+    public Sprite boarding;
+    public Sprite boardingHighlighted;
+    public Sprite sitting;
+    public Sprite sittingHighlighted;
+    public Sprite smoking;
+    public Sprite smokingHighlighted;
+    GameObject smokeParticles;
 
     public Type type;
     public float paidFare;
 
     Image image;
     Sprite startingSprite;
-
-    bool isRowdy = false;
-    bool isSitting = false;
-    bool isBoarding = false;
-
+    State currentState;
     bool isPointerEnter;
+    bool isHighlightValid;
+    Coroutine misdemeanorRoutine;
 
     private void Awake() {
         image = GetComponent<Image>();
+        foreach (Transform child in transform) {
+            if (child.tag == "Smoke") {
+                smokeParticles = child.gameObject;
+            }
+        }
         startingSprite = image.sprite;
     }
 
     private void Update() {
-        if (Input.GetMouseButtonUp(1) && isPointerEnter) {
+        if (Input.GetMouseButtonUp(1) && isPointerEnter && GameManager.isPlayerHoldingCoins) {
             FareEvent.OnRejectPayment?.Invoke();
+        }
+
+        if (Input.GetMouseButtonDown(0) && isPointerEnter && Bus.isLookingBack) {
+            //DisplayManager.OnPassengerClick?.Invoke();
+            Kick();
+        }
+
+        if (misdemeanorRoutine == null) {
+            misdemeanorRoutine = StartCoroutine(MisdemeanorRoutine());
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData) {
+        isPointerEnter = true;
+        if (!isHighlightValid) {
+            return;
+        }
+        Highlight();
+    }
+
+    public void OnPointerExit(PointerEventData eventData) {
+        isPointerEnter = false;
+        if (!isHighlightValid) {
+            return;
+        }
+        if (Bus.isLookingBack) {
+            if (currentState == State.MISDEMEANOR) {
+                image.sprite = smoking;
+            } else {
+                image.sprite = sitting;
+            }
+        } else {
+            image.sprite = boarding;
         }
     }
 
     public void Board() {
-        PayFare();
+        UpdateState(State.BOARDING);
     }
 
     public void Leave() {
@@ -48,12 +94,30 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
 
     public void Kick() {
-        Bus.OnKick?.Invoke();
+        StartCoroutine(KickRoutine());
     }
 
     public void Stay() {
-        image.sprite = sittingSprite;
-        Bus.OnSit?.Invoke();
+        UpdateState(State.BOARDED);
+    }
+
+    IEnumerator MisdemeanorRoutine() {
+        while (currentState == State.BOARDED) {
+            float delay = Random.Range(3f, 10f);
+            float misdemeanorChance = Random.Range(0f, 1f);
+            bool shouldActivate = misdemeanorChance >= 0.75f;
+            if (true) {
+                UpdateState(State.MISDEMEANOR);
+                break;
+            } else {
+                yield return new WaitForSeconds(delay);
+            }
+        }
+    }
+
+    void SmokeCigarette() {
+        image.sprite = smoking;
+        smokeParticles.SetActive(true);
     }
 
     void PayFare() {
@@ -82,22 +146,61 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         FareBox.OnPresentFare?.Invoke(paidFare);
     }
 
+    void Highlight() {
+        if (GameManager.isPlayerHoldingCoins) {
+            image.sprite = boardingHighlighted;
+        } else if (Bus.isLookingBack) {
+            if (currentState == State.MISDEMEANOR) {
+                image.sprite = smokingHighlighted;
+            } else {
+                image.sprite = sittingHighlighted;
+            }
+        }
+    }
+
     void SkewFarePayment() {
         // TODO: enhance
         paidFare += 1f;
     }
 
-    public void OnPointerEnter(PointerEventData eventData) {
-        if (GameManager.isPlayerHoldingCoins) {
-            isPointerEnter = true;
-            image.sprite = highlighted;
+    void UpdateState(State state) {
+        currentState = state;
+        if (smokeParticles != null) {
+            smokeParticles.SetActive(false);
+        }
+        switch (state) {
+            case State.BOARDING: {
+                isHighlightValid = true;
+                image.sprite = boarding;
+                PayFare();
+                break;
+            }
+            case State.BOARDED: {
+                image.sprite = sitting;
+                Bus.OnSit?.Invoke();
+                break;
+            }
+            case State.MISDEMEANOR: {
+                SmokeCigarette();
+                break;
+            }
+            case State.EXITING: {
+                image.sprite = boarding;
+                break;
+            }
         }
     }
 
-    public void OnPointerExit(PointerEventData eventData) {
-        isPointerEnter = false;
-        if (image.sprite == highlighted) {
-            image.sprite = startingSprite;
+    IEnumerator KickRoutine() {
+        isHighlightValid = false;
+        foreach (Transform child in transform) {
+            if (child.tag == "Smoke") {
+                Destroy(child.gameObject);
+            }
         }
+        yield return StartCoroutine(Utilities.FadeOut(gameObject));
+        UpdateState(State.EXITING);
+        Bus.OnKick?.Invoke(gameObject);
+        yield break;
     }
 }
