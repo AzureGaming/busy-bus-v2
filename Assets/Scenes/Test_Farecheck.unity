@@ -378,6 +378,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Back of Bus
       objectReference: {fileID: 0}
+    - target: {fileID: 5924882110684693734, guid: 5d968b4e1a325474c8d0c10fb1751062, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d968b4e1a325474c8d0c10fb1751062, type: 3}
 --- !u!4 &222215826 stripped
@@ -1042,10 +1046,10 @@ RectTransform:
   m_Father: {fileID: 1510149504}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 474.62, y: 163.6}
-  m_SizeDelta: {x: 79.861, y: 319.4438}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 66.9, y: -69.2}
+  m_SizeDelta: {x: 122.47, y: 313.78998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1222192191
 MonoBehaviour:

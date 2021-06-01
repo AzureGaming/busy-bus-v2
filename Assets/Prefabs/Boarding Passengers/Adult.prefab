@@ -89,8 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9736ffa6543570745a135d09a1a488c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boarding: {fileID: -4867836992566541121, guid: 26598e8275dc78e4d93517cf1b91dc83, type: 3}
-  boardingHighlighted: {fileID: -3705020726943333425, guid: 26598e8275dc78e4d93517cf1b91dc83, type: 3}
+  boarding: {fileID: 3707591440559685625, guid: 85b9f0a41bf09004a976ed2ae4f844f5, type: 3}
+  boardingHighlighted: {fileID: -5623391328542255158, guid: 85b9f0a41bf09004a976ed2ae4f844f5, type: 3}
   sitting: {fileID: -9160790334138124321, guid: cfe1d3950c7801b478e69226e9db4d64, type: 3}
   sittingHighlighted: {fileID: 3109671349287964608, guid: cfe1d3950c7801b478e69226e9db4d64, type: 3}
   smoking: {fileID: 4071460410677881779, guid: cfe1d3950c7801b478e69226e9db4d64, type: 3}
