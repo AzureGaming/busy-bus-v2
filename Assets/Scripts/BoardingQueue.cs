@@ -55,6 +55,10 @@ public class BoardingQueue : MonoBehaviour {
         //}
         //GameObject passengerInstantiation = Instantiate(randomPrefab);
         GameObject passengerInstantiation = Instantiate(adultPrefab, transform);
+        // hack to update the view without going through DisplayManager
+        if (Bus.isLookingBack) {
+            Utilities.HideUI(passengerInstantiation);
+        }
 
         commuters.Add(passengerInstantiation);
         passengerInstantiation.GetComponent<Passenger>().Board();

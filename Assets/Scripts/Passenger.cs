@@ -18,23 +18,37 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         EXITING
     }
 
+    public delegate void DisplayFrontOfBus();
+    public static DisplayFrontOfBus OnDisplayFrontOfBus;
+    public delegate void DisplayBackOfBus();
+    public static DisplayBackOfBus OnDisplayBackOfBus;
+
     public Sprite boarding;
     public Sprite boardingHighlighted;
     public Sprite sitting;
     public Sprite sittingHighlighted;
     public Sprite smoking;
     public Sprite smokingHighlighted;
-    GameObject smokeParticles;
-
     public Type type;
     public float paidFare;
 
+    GameObject smokeParticles;
     Image image;
-    Sprite startingSprite;
+    Sprite preHighlight;
     State currentState;
     bool isPointerEnter;
     bool isHighlightValid;
     Coroutine misdemeanorRoutine;
+
+    private void OnEnable() {
+        OnDisplayFrontOfBus += HideSmoke;
+        OnDisplayBackOfBus += ShowSmoke;
+    }
+
+    private void OnDisable() {
+        OnDisplayFrontOfBus -= HideSmoke;
+        OnDisplayBackOfBus -= ShowSmoke;
+    }
 
     private void Awake() {
         image = GetComponent<Image>();
@@ -43,7 +57,6 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 smokeParticles = child.gameObject;
             }
         }
-        startingSprite = image.sprite;
     }
 
     private void Update() {
@@ -66,6 +79,7 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (!isHighlightValid) {
             return;
         }
+        preHighlight = image.sprite;
         Highlight();
     }
 
@@ -74,15 +88,7 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (!isHighlightValid) {
             return;
         }
-        if (Bus.isLookingBack) {
-            if (currentState == State.MISDEMEANOR) {
-                image.sprite = smoking;
-            } else {
-                image.sprite = sitting;
-            }
-        } else {
-            image.sprite = boarding;
-        }
+        image.sprite = preHighlight;
     }
 
     public void Board() {
@@ -202,5 +208,25 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         UpdateState(State.EXITING);
         Bus.OnKick?.Invoke(gameObject);
         yield break;
+    }
+
+    void HideSmoke() {
+        foreach (Transform child in transform) {
+            if (child.tag == "Smoke") {
+                child.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    void ShowSmoke() {
+        if (currentState != State.MISDEMEANOR) {
+            return;
+        }
+
+        foreach (Transform child in transform) {
+            if (child.tag == "Smoke") {
+                child.gameObject.SetActive(true);
+            }
+        }
     }
 }
