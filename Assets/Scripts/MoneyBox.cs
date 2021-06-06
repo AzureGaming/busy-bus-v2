@@ -19,7 +19,7 @@ public class MoneyBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void Update() {
         if (Input.GetMouseButtonUp(1) && isPointerEnter) {
-            FareEvent.OnAcceptPayment?.Invoke();
+            FareEvent.OnDropFareInBox?.Invoke();
         }
     }
 

@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour {
         boardingQueue.Clear();
         timeOfDay.Init();
         eventQueue.QueueForDay();
+        Bus.OnDrive?.Invoke();
     }
 
     void GameOver(int fails) {

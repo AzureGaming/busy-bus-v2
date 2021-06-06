@@ -5,10 +5,10 @@ using UnityEngine;
 public class FareEvent : BusEvent {
     public delegate void Init();
     public static Init OnInit;
-    public delegate void RejectPayment();
-    public static RejectPayment OnRejectPayment;
-    public delegate void AcceptPayment();
-    public static AcceptPayment OnAcceptPayment;
+    public delegate void ReturnFareToPassenger();
+    public static ReturnFareToPassenger OnReturnFareToPassenger;
+    public delegate void DropFareInBox();
+    public static DropFareInBox OnDropFareInBox;
 
     public GameObject regularPassenger;
     public GameObject fareBox;
@@ -26,14 +26,14 @@ public class FareEvent : BusEvent {
 
     private void OnEnable() {
         OnInit += Begin;
-        OnRejectPayment += Reject;
-        OnAcceptPayment += Accept;
+        OnReturnFareToPassenger += Reject;
+        OnDropFareInBox += Accept;
     }
 
     private void OnDisable() {
         OnInit -= Begin;
-        OnRejectPayment -= Reject;
-        OnAcceptPayment -= Accept;
+        OnReturnFareToPassenger -= Reject;
+        OnDropFareInBox -= Accept;
     }
 
     void Begin() {

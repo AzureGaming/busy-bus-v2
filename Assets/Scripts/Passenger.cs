@@ -61,7 +61,7 @@ public class Passenger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void Update() {
         if (Input.GetMouseButtonUp(1) && isPointerEnter && GameManager.isPlayerHoldingCoins) {
-            FareEvent.OnRejectPayment?.Invoke();
+            FareEvent.OnReturnFareToPassenger?.Invoke();
         }
 
         if (Input.GetMouseButtonDown(0) && isPointerEnter && Bus.isLookingBack) {

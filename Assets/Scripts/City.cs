@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Background : MonoBehaviour {
+public class City : MonoBehaviour {
     public delegate void LeftLaneChange(bool isRushed);
     public static LeftLaneChange OnLeftLaneChange;
     public delegate void RightLaneChange(bool isRushed);
@@ -18,27 +18,23 @@ public class Background : MonoBehaviour {
     public static ShowRegular OnShowRegular;
     public delegate void CheckQueue();
     public static CheckQueue OnCheckQueue;
-    public delegate void ResumeDriving();
-    public static ResumeDriving OnResumeDriving;
+    public delegate void Drive();
+    public static Drive OnDrive;
 
     public GameObject leftLanePosition;
     public GameObject rightLanePosition;
     public GameObject image;
     public GameObject regularBackground;
-    public GameObject busStopLeftBackground;
-    public GameObject busStopRightBackground;
 
     public Animator busStopAnimator;
     public Animator regularAnimator;
 
     Color regularBackgroundColor;
-    Color busStopBackgroundColor;
 
     bool busStopQueued;
 
     private void Awake() {
         regularBackgroundColor = regularBackground.GetComponent<Image>().color;
-        busStopBackgroundColor = busStopLeftBackground.GetComponent<Image>().color;
     }
 
     private void OnEnable() {
@@ -49,7 +45,7 @@ public class Background : MonoBehaviour {
         OnShowBusStop += QueueBusStop;
         OnCheckQueue += CheckIfChangeRequired;
         OnShowRegular += DisplayRegular;
-        OnResumeDriving += Resume;
+        OnDrive += SetSpeedNormal;
     }
 
     private void OnDisable() {
@@ -60,7 +56,7 @@ public class Background : MonoBehaviour {
         OnShowBusStop -= QueueBusStop;
         OnCheckQueue -= CheckIfChangeRequired;
         OnShowRegular -= DisplayRegular;
-        OnResumeDriving -= Resume;
+        OnDrive -= SetSpeedNormal;
     }
 
     void QueueBusStop() {
@@ -103,37 +99,27 @@ public class Background : MonoBehaviour {
     }
 
     void TriggerBusStop() {
-        if (Bus.currentLane == Bus.Lane.Left) {
-            busStopLeftBackground.GetComponent<BusStopBackground>().shouldTriggerEvent = true;
-        } else {
-            busStopRightBackground.GetComponent<BusStopBackground>().shouldTriggerEvent = true;
-        }
+        BusStopBackgroundManager.OnQueueBusStop?.Invoke(Bus.currentLane);
     }
 
-    void Resume() {
+    void SetSpeedNormal() {
         busStopQueued = false;
-        BusStopBackground[] busStopBackgrounds = GetComponentsInChildren<BusStopBackground>();
-        foreach (BusStopBackground bg in busStopBackgrounds) {
-            bg.GetComponent<Animator>().speed = 1f;
-        }
-        GetComponentInChildren<RegularBackground>().GetComponent<Animator>().speed = 1f;
+        CityBackground.OnAnimate?.Invoke();
+    }
+
+    void SetSpeedZero() {
+        busStopQueued = false;
+        CityBackground.OnStopAnimation?.Invoke();
     }
 
     void DisplayRegular() {
         regularBackground.GetComponent<Image>().color = regularBackgroundColor;
-        busStopLeftBackground.GetComponent<Image>().color = Color.clear;
-        busStopRightBackground.GetComponent<Image>().color = Color.clear;
+        BusStopBackgroundManager.OnUpdateBackground?.Invoke(Bus.currentLane);
     }
 
     void DisplayBusStop() {
         regularBackground.GetComponent<Image>().color = Color.clear;
-        if (Bus.currentLane == Bus.Lane.Left) {
-            busStopLeftBackground.GetComponent<Image>().color = busStopBackgroundColor;
-            busStopRightBackground.GetComponent<Image>().color = Color.clear;
-        } else {
-            busStopLeftBackground.GetComponent<Image>().color = Color.clear;
-            busStopRightBackground.GetComponent<Image>().color = busStopBackgroundColor;
-        }
+        BusStopBackgroundManager.OnUpdateBackground?.Invoke(Bus.currentLane);
     }
 
     void ReduceAnimationSpeed() {

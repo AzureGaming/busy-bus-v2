@@ -43,9 +43,9 @@ public class Bus : MonoBehaviour {
     private void Start() {
         DisplayManager.OnLookForward?.Invoke();
         if (currentLane == Lane.Left) {
-            Background.OnInitLeftLane?.Invoke();
+            City.OnInitLeftLane?.Invoke();
         } else {
-            Background.OnInitRightLane?.Invoke();
+            City.OnInitRightLane?.Invoke();
         }
     }
 
@@ -65,7 +65,7 @@ public class Bus : MonoBehaviour {
 
     private void OnEnable() {
         OnLaneChange += HandleLaneChange;
-        OnDrive += Accelerate;
+        OnDrive += Go;
         OnBoard += BoardPassenger;
         OnSit += SeatPassenger;
         OnKick += KickPassenger;
@@ -75,7 +75,7 @@ public class Bus : MonoBehaviour {
 
     private void OnDisable() {
         OnLaneChange -= HandleLaneChange;
-        OnDrive -= Accelerate;
+        OnDrive -= Go;
         OnBoard -= BoardPassenger;
         OnSit -= SeatPassenger;
         OnKick -= KickPassenger;
@@ -84,19 +84,20 @@ public class Bus : MonoBehaviour {
     }
 
     void ChangeLaneLeft(bool isRushed) {
-        Background.OnLeftLaneChange?.Invoke(isRushed);
+        City.OnLeftLaneChange?.Invoke(isRushed);
     }
 
     void ChangeLaneRight(bool isRushed) {
-        Background.OnRightLaneChange?.Invoke(isRushed);
+        City.OnRightLaneChange?.Invoke(isRushed);
     }
 
     void TriggerPassengerPickup() {
-        Background.OnShowBusStop?.Invoke();
+        City.OnShowBusStop?.Invoke();
     }
 
-    void Accelerate() {
-        Background.OnResumeDriving?.Invoke();
+    void Go() {
+        City.OnDrive?.Invoke();
+        AudioManager.OnDriveBus?.Invoke();
     }
 
     void BoardPassenger() {

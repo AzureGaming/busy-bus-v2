@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BusStopBackground : MonoBehaviour {
+public class BusStopBackground : CityBackground {
     public Animator regularAnimator;
     public Animator busStopAnimator;
 
     public bool shouldTriggerEvent;
 
     bool returnToNormal = false;
+    Image image;
+
+    protected override void Awake() {
+        base.Awake();
+        image = GetComponent<Image>();
+    }
 
     public void OnFrameBesideBusStop() {
         if (shouldTriggerEvent) {
@@ -21,10 +27,22 @@ public class BusStopBackground : MonoBehaviour {
             FareEvent.OnInit?.Invoke();
         }
     }
-    public void CheckIfBackgroundShouldChange() {
+    public override void CheckIfBackgroundShouldChange() {
         if (returnToNormal) {
-            Background.OnShowRegular?.Invoke();
+            City.OnShowRegular?.Invoke();
             returnToNormal = false;
         }
+    }
+
+    public void SetOpaque() {
+        Color newColor = image.color;
+        newColor.a = 1f;
+        image.color = newColor; 
+    }
+
+    public void SetTransparent() {
+        Color newColor = image.color;
+        newColor.a = 0f;
+        image.color = newColor;
     }
 }
