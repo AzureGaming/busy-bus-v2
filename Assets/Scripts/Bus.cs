@@ -56,6 +56,7 @@ public class Bus : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Space)) {
             DisplayManager.OnLookBack?.Invoke();
+            AudioManager.OnShowBack?.Invoke();
             isLookingBack = true;
         } else if (Input.GetKeyUp(KeyCode.Space)) {
             DisplayManager.OnLookForward?.Invoke();
@@ -102,6 +103,7 @@ public class Bus : MonoBehaviour {
 
     void BoardPassenger() {
         fareBox.SetActive(true);
+        AudioManager.OnOpenDoor?.Invoke();
         BoardingQueue.SpawnPassengers?.Invoke(); // sets current passenger
     }
 

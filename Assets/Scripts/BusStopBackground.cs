@@ -25,6 +25,7 @@ public class BusStopBackground : CityBackground {
             shouldTriggerEvent = false;
             returnToNormal = true;
             FareEvent.OnInit?.Invoke();
+            AudioManager.OnStopBus?.Invoke();
         }
     }
     public override void CheckIfBackgroundShouldChange() {

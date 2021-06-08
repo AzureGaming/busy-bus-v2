@@ -41,11 +41,13 @@ public class FareEvent : BusEvent {
     }
 
     public void Accept() {
+        AudioManager.OnDropMoney?.Invoke();
         // Must be called to progress event
         playerDecision = true;
     }
 
     public void Reject() {
+        AudioManager.OnDropMoney?.Invoke();
         // Must be called to progress event
         playerDecision = false;
     }
